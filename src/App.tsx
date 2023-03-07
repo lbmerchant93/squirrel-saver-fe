@@ -1,10 +1,24 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { PossibleRoutes } from './utils/constants';
+import AppBar from './features/AppBar/AppBar';
+import LandingPage from './pages/LandingPage/LandingPage';
 
-function App() {
+const App = () => {
+
+  const routes = (
+    <Routes>
+      <Route path={`${PossibleRoutes.ROOT}`} element={<LandingPage />} />
+    </Routes>
+  );
+
   return (
-    <div className="App">
-      Squirrel Saver
-    </div>
+    <Router>
+      <AppBar/>
+      <main>
+        {routes}
+      </main>
+    </Router>
   );
 }
 
