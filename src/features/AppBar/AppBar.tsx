@@ -1,6 +1,5 @@
 import React from 'react';
 import MUIAppBar from '@mui/material/AppBar';
-import Typography from '@mui/material/Typography';
 import { PossibleRoutes } from '../../utils/constants';
 import { 
     ToolBar,
