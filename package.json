@@ -29,7 +29,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "jest:test": "jest",
+    "test": "react-scripts test",
     "cypress:open": "cypress open",
     "eject": "react-scripts eject"
   },
