@@ -6,7 +6,6 @@ export interface User {
     id: string | undefined;
     isLoggedIn: boolean;
     setDisplayName: Dispatch<SetStateAction<string | null | undefined>>;
-    setIsLoadingUser: Dispatch<SetStateAction<boolean>>;
     setUserId: Dispatch<SetStateAction<string | undefined>>;
 }
 
@@ -16,6 +15,5 @@ export const AuthContext = createContext<User>({
     id: undefined,
     isLoggedIn: false, 
     setDisplayName: () => {},
-    setIsLoadingUser: () => {},
     setUserId: () => {},
 })
