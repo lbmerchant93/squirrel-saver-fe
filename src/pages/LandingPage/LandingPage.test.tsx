@@ -1,6 +1,7 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import LandingPage from './LandingPage';
+import userEvent from '@testing-library/user-event';
 
 describe('Landing Page', () => {
     test('Renders welcome message.', () => {
@@ -15,21 +16,29 @@ describe('Landing Page', () => {
         expect(description).toBeInTheDocument();
     });
 
-    test('Renders log in directions and link to LoginPage.', () => {
+    test('Renders log in directions and link to LoginPage.', async () => {
         render(<LandingPage />);
         const loginDirections = screen.getByText("Already have an account? Great! Welcome back! Click here to login.");
         expect(loginDirections).toBeInTheDocument();
 
-        const loginLink = screen.getAllByRole('link', { name: 'login'})
+        const loginLink = screen.getByRole('link', { name: 'login'})
         expect(loginLink).toBeInTheDocument();
+        userEvent.click(loginLink);
+        await waitFor(() => {
+            expect(screen.getByText("Login")).toBeInTheDocument();
+        });
     });
 
-    test('Renders create account directions and link to CreateAccountPage.', () => {
+    test('Renders create account directions and link to CreateAccountPage.', async () => {
         render(<LandingPage />);
         const createAccountDirections = screen.getByText("Is this your first time here? Awesome, welcome to Squirrel Saver! Click here to create an account and get started squirreling your way to a better savings.");
         expect(createAccountDirections).toBeInTheDocument();
 
-        const createAccountLink = screen.getAllByRole('link', { name: 'create an account'})
+        const createAccountLink = screen.getByRole('link', { name: 'create an account'})
         expect(createAccountLink).toBeInTheDocument();
+        userEvent.click(createAccountLink);
+        await waitFor(() => {
+            expect(screen.getByText("Create Account")).toBeInTheDocument();
+        });
     });
 })
