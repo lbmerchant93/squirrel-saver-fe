@@ -8,6 +8,7 @@ import firebaseConfig from './configs/firebase.configs';
 import AuthProvider from './App.authProvider';
 
 initializeApp(firebaseConfig);
+//Working here, need to create login form to test firebaseConfig
 
 const App = () => {
 
