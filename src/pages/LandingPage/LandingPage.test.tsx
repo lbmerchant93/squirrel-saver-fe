@@ -11,13 +11,19 @@ describe('Landing Page', () => {
 
     test('Renders Squirrel Saver description.', () => {
         render(<LandingPage />);
-        const pageTitle = screen.getByText("This app is designed to help you squirrel away money from each shift you work in order to help build your savings. You can create an account below to get started and follow the instructions for setting up your account. Already have an account? Great! Welcome back! Log in below to go to your profile.");
+        const pageTitle = screen.getByText("This app is designed to help you squirrel away money from each shift you work in order to help build your savings.");
         expect(pageTitle).toBeInTheDocument();
     });
 
     test('Renders log in directions.', () => {
         render(<LandingPage />);
         const pageTitle = screen.getByText("Already have an account? Great! Welcome back! Click here to log in.");
+        expect(pageTitle).toBeInTheDocument();
+    });
+
+    test('Renders create account directions.', () => {
+        render(<LandingPage />);
+        const pageTitle = screen.getByText("Is this your first time here? Awesome, welcome to Squirrel Saver! Click here to create an account and get started squirreling your way to a better savings.");
         expect(pageTitle).toBeInTheDocument();
     });
 })
