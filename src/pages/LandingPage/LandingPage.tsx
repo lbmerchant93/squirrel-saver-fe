@@ -2,7 +2,7 @@ import React from 'react'
 
 const LandingPage = () => {
   return (
-    <div>Landing Page</div>
+    <div>Welcome to Squirrel Saver!</div>
   )
 }
 

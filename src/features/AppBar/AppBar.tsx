@@ -1,6 +1,6 @@
 import React from 'react';
-import MUIAppBar from '@mui/material/AppBar';
 import { PossibleRoutes } from '../../utils/constants';
+import MUIAppBar from '@mui/material/AppBar';
 import { 
     ToolBar,
     ToolBarContainer,

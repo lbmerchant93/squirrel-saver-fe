@@ -41,4 +41,4 @@ describe('Landing Page', () => {
             expect(screen.getByText("Create Account")).toBeInTheDocument();
         });
     });
-})
+});
