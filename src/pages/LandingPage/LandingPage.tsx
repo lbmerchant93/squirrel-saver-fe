@@ -11,7 +11,8 @@ const LandingPage = () => {
     <LandingPageContainer>
       <Typography variant='h2'>Welcome to Squirrel Saver!</Typography>
       <Typography variant='subtitle2'>*The app designed to help squirrel away money in order to help build your savings.*</Typography>
-      <Typography variant='h5' my={7}>Already have an account? Great! Welcome back!<br/>Click <Link to={`${PossibleRoutes.LOGIN}`}>here</Link> to login.</Typography>
+      <Typography variant='h5' mt={7}>Already have an account? Great! Welcome back!</Typography>
+      <Typography variant='h5'><Link to={`${PossibleRoutes.LOGIN}`}>Click here to login.</Link></Typography>
     </LandingPageContainer>
   )
 }
