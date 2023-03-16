@@ -1,8 +1,7 @@
 import React from 'react';
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import LandingPage from './LandingPage';
-import userEvent from '@testing-library/user-event';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, MemoryRouter, BrowserRouter } from 'react-router-dom';
 import { PossibleRoutes } from '../../utils/constants';
 import LoginPage from '../LoginPage/LoginPage';
 
@@ -36,10 +35,9 @@ describe('Landing Page', () => {
               <Route path={`${PossibleRoutes.LOGIN}`} element={<LoginPage />} />
             </Routes>
         );
-        render(<BrowserRouter>{routes}</BrowserRouter>)
+        render(<MemoryRouter initialEntries={["/"]}>{routes}</MemoryRouter>)
         const loginLink = screen.getByRole('link', { name: 'Click here to login.' })
-        // Working here, act shouldn't be used but throws a warning when not used on userEvent
-        act(() => {userEvent.click(loginLink)});
+        fireEvent.click(loginLink)
         await waitFor(() => {
             expect(screen.getByText("LoginPage")).toBeInTheDocument();
         });
