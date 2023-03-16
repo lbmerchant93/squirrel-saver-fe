@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import LandingPage from './LandingPage';
-import { Routes, Route, MemoryRouter, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { PossibleRoutes } from '../../utils/constants';
 import LoginPage from '../LoginPage/LoginPage';
 
@@ -28,14 +28,14 @@ describe('Landing Page', () => {
         expect(loginLink).toBeInTheDocument();
     });
 
-    it.only('Directs user to the LoginPage on login link click.', async () => {
+    it('Directs user to the LoginPage on login link click.', async () => {
         const routes = (
             <Routes>
               <Route path={`${PossibleRoutes.ROOT}`} element={<LandingPage />} />
               <Route path={`${PossibleRoutes.LOGIN}`} element={<LoginPage />} />
             </Routes>
         );
-        render(<MemoryRouter initialEntries={["/"]}>{routes}</MemoryRouter>)
+        render(<BrowserRouter>{routes}</BrowserRouter>)
         const loginLink = screen.getByRole('link', { name: 'Click here to login.' })
         fireEvent.click(loginLink)
         await waitFor(() => {
