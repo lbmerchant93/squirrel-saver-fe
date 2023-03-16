@@ -1,9 +1,10 @@
 import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import LandingPage from './LandingPage';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, BrowserRouter, MemoryRouter } from 'react-router-dom';
 import { PossibleRoutes } from '../../utils/constants';
 import LoginPage from '../LoginPage/LoginPage';
+import CreateAccountPage from '../CreateAccountPage/CreateAccountPage';
 
 
 describe('Landing Page', () => {
@@ -24,7 +25,7 @@ describe('Landing Page', () => {
         const loginDirections = screen.getByText("Already have an account? Great, welcome back!");
         expect(loginDirections).toBeInTheDocument();
 
-        const loginLink = screen.getByRole('link', { name: 'Click here to login.' })
+        const loginLink = screen.getByRole('link', { name: 'Click here to login.' });
         expect(loginLink).toBeInTheDocument();
     });
 
@@ -35,9 +36,9 @@ describe('Landing Page', () => {
               <Route path={`${PossibleRoutes.LOGIN}`} element={<LoginPage />} />
             </Routes>
         );
-        render(<BrowserRouter>{routes}</BrowserRouter>)
-        const loginLink = screen.getByRole('link', { name: 'Click here to login.' })
-        fireEvent.click(loginLink)
+        render(<MemoryRouter>{routes}</MemoryRouter>);
+        const loginLink = screen.getByRole('link', { name: 'Click here to login.' });
+        fireEvent.click(loginLink);
         await waitFor(() => {
             expect(screen.getByText("LoginPage")).toBeInTheDocument();
         });
@@ -48,17 +49,22 @@ describe('Landing Page', () => {
         const createAccountDirections = screen.getByText("First time here? Awesome, welcome to Squirrel Saver!");
         expect(createAccountDirections).toBeInTheDocument();
 
-        const createAccountLink = screen.getByRole('link', { name: 'Click here to create an account.'})
+        const createAccountLink = screen.getByRole('link', { name: 'Click here to create an account.'});
         expect(createAccountLink).toBeInTheDocument();
     });
 
-    it.skip('Directs user to the CreateAccountPage on create account link click.', async () => {
-        render(<BrowserRouter><LandingPage /></BrowserRouter>);
-
-        const createAccountLink = screen.getByRole('link', { name: 'Click here to create an account.' })
-        // userEvent.click(createAccountLink);
-        // await waitFor(() => {
-        //     expect(screen.getByText("CreateAccountPage")).toBeInTheDocument();
-        // });
+    it('Directs user to the CreateAccountPage on create account link click.', async () => {
+        const routes = (
+            <Routes>
+              <Route path={`${PossibleRoutes.ROOT}`} element={<LandingPage />} />
+              <Route path={`${PossibleRoutes.CREATE_ACCOUNT}`} element={<CreateAccountPage />} />
+            </Routes>
+        );
+        render(<MemoryRouter initialEntries={['/']}>{routes}</MemoryRouter>);
+        const createAccountLink = screen.getByRole('link', { name: 'Click here to create an account.' });
+        fireEvent.click(createAccountLink);
+        await waitFor(() => {
+            expect(screen.getByText("CreateAccountPage")).toBeInTheDocument();
+        });
     });
 });

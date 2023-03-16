@@ -14,7 +14,7 @@ const LandingPage = () => {
       <Typography variant='h5' mt={7}>Already have an account? Great, welcome back!</Typography>
       <Typography variant='h5'><Link to={`${PossibleRoutes.LOGIN}`}>Click here to login.</Link></Typography>
       <Typography variant='h5' mt={7}>First time here? Awesome, welcome to Squirrel Saver!</Typography>
-      <Typography variant='h5'><Link to={`${PossibleRoutes.LOGIN}`}>Click here to create an account.</Link></Typography>
+      <Typography variant='h5'><Link to={`${PossibleRoutes.CREATE_ACCOUNT}`}>Click here to create an account.</Link></Typography>
     </LandingPageContainer>
   )
 }
