@@ -21,7 +21,7 @@ describe('Landing Page', () => {
 
     it('Renders log in directions and link to LoginPage.', () => {
         render(<BrowserRouter><LandingPage /></BrowserRouter>);
-        const loginDirections = screen.getByText("Already have an account? Great! Welcome back!");
+        const loginDirections = screen.getByText("Already have an account? Great, welcome back!");
         expect(loginDirections).toBeInTheDocument();
 
         const loginLink = screen.getByRole('link', { name: 'Click here to login.' })
@@ -43,9 +43,9 @@ describe('Landing Page', () => {
         });
     });
 
-    it.skip('Renders create account directions and link to CreateAccountPage.', () => {
+    it('Renders create account directions and link to CreateAccountPage.', () => {
         render(<BrowserRouter><LandingPage /></BrowserRouter>);
-        const createAccountDirections = screen.getByText("Is this your first time here? Awesome, welcome to Squirrel Saver!");
+        const createAccountDirections = screen.getByText("First time here? Awesome, welcome to Squirrel Saver!");
         expect(createAccountDirections).toBeInTheDocument();
 
         const createAccountLink = screen.getByRole('link', { name: 'Click here to create an account.'})
