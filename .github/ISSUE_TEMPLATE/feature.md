@@ -1,5 +1,5 @@
 ---
-name: Feature/Fix
+name: Feature
 about: Describe this issue purpose.
 title: ''
 labels: ''
