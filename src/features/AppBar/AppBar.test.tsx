@@ -1,7 +1,8 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import AppBar from './AppBar';
+import App from '../../App';
 
 describe('AppBar', () => {
     it('Renders the App title and doesn\'t render the logout button if the user is not logged in.', () => {
@@ -12,6 +13,20 @@ describe('AppBar', () => {
         // Check that "Logout" is not on the screen, use queryBy* for checking existence
         expect(screen.queryByText(/Logout/i)).toBe(null);
     });
+
+    it('Directs user to the LandingPage when clicking on app title', async () => {
+        render(<App />);
+        const appTitle = screen.getByText("Squirrel Saver");
+        const loginLink = screen.getByRole('link', { name: 'Click here to login.' });
+        fireEvent.click(loginLink);
+        await waitFor(() => {
+            expect(screen.getByText("LoginPage")).toBeInTheDocument();
+        });
+        fireEvent.click(appTitle);
+        await waitFor(() => {
+            expect(screen.getByText("Welcome to Squirrel Saver!")).toBeInTheDocument();
+        });
+    })
 
     // it('Renders a logout button when a user is logged in.', () => {
     //     render(<AppBar />);
