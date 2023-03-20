@@ -1,14 +1,24 @@
-What does this PR do?
+## *Purpose:*
+*What does this merge do? Check all that apply.*
+- [ ] Adds a new feature
+- [ ] Improves an existing feature
+- [ ] Fixes a bug
+- [ ] Cleans up (logs, tests, etc.)
 
 
-What does it feature/fix?
+## *Description: What does this PR do?*
+*Briefly, but clearly describe what you did, and explain any new code.*
 
 
-Where should the reviewer start?
+## *What are the relevant tickets?*
+Closes _
 
 
-How should this be tested?
+## *Bugs:*
+*Are there any concerns, issues, or bugs in this branch? If so describe them.*
 
 
-What are the next steps or any issues/concerns?
-
+## Checklist:
+- [ ] I have performed a self-review of my own code
+- [ ] I have run Lighthouse/Wave checks for accessibility
+- [ ] New and existing unit tests pass locally with my change
