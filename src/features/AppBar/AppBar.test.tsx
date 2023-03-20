@@ -1,15 +1,16 @@
 import React from 'react';
-// import { render, screen } from '@testing-library/react';
-// import AppBar from './AppBar';
+import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import AppBar from './AppBar';
 
 describe('AppBar', () => {
     it('Renders the App title and doesn\'t render the logout button if the user is not logged in.', () => {
-        // render(<AppBar />);
-        // // Check Title is present on the screen
-        // const pageTitle = screen.getByText(/Squirrel Saver/i);
-        // expect(pageTitle).toBeInTheDocument();
-        // // Check that "Logout" is not on the screen, use queryBy* for checking existence
-        // expect(screen.queryByText(/Logout/i)).toBe(null);
+        render(<BrowserRouter><AppBar /></BrowserRouter>);
+        // Check Title is present on the screen
+        const pageTitle = screen.getByText(/Squirrel Saver/i);
+        expect(pageTitle).toBeInTheDocument();
+        // Check that "Logout" is not on the screen, use queryBy* for checking existence
+        expect(screen.queryByText(/Logout/i)).toBe(null);
     });
 
     // it('Renders a logout button when a user is logged in.', () => {
