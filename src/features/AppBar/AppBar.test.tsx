@@ -28,13 +28,13 @@ describe('AppBar', () => {
         });
     })
 
-    // it('Renders a logout button when a user is logged in.', () => {
-    //     render(<AppBar />);
-    //     // Action to assign user as logged in, working here to get test to pass
+    it.skip('Renders a logout button when a user is logged in.', () => {
+        render(<AppBar />);
+        // Action to assign user as logged in, working here to get test to pass
 
-    //     // Check that a button with text logout is on the screen
-    //     const logoutButton = screen.getByRole("button", {name: /Logout/i});
-    //     expect(logoutButton).toBeInTheDocument();
-    // });
+        // Check that a button with text logout is on the screen
+        const logoutButton = screen.getByRole("button", {name: /Logout/i});
+        expect(logoutButton).toBeInTheDocument();
+    });
 })
 

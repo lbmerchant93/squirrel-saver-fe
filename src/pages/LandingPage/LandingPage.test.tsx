@@ -67,4 +67,8 @@ describe('Landing Page', () => {
             expect(screen.getByText("CreateAccountPage")).toBeInTheDocument();
         });
     });
+
+    it.skip('Renders the HomePage component when the user is logged in', () => {
+        render(<BrowserRouter><LandingPage /></BrowserRouter>);
+    });
 });

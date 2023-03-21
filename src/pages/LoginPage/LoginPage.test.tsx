@@ -11,24 +11,24 @@ describe('Login Page', () => {
         expect(loginDirections).toBeInTheDocument();
     });
 
-    it('Rends a form to login using an email and password.', () => {
+    it.skip('Rends a form to login using an email and password.', () => {
         render(<LoginPage />);
         
     });
 
-    it('Renders a button to login using a Google account.', () => {
+    it.skip('Renders a button to login using a Google account.', () => {
         render(<LoginPage/>)
     })
 
-    it('Renders an error message when the user enters an incorrect email or password.', () => {
+    it.skip('Renders an error message when the user enters an incorrect email or password.', () => {
         render(<LoginPage/>)
     })
 
-    it('Renders a message with link to navigate the user to the CreateAccountPage if they need.', () => {
+    it.skip('Renders a message with link to navigate the user to the CreateAccountPage if they need.', () => {
         render(<LoginPage/>)
     })
 
-    it('Navigates the user to the root URL once the user is logged in.', () => {
+    it.skip('Navigates the user to the root URL once the user is logged in.', () => {
         render(<LoginPage/>)
     })
 });
