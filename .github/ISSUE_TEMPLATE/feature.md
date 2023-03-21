@@ -1,6 +1,6 @@
 ---
 name: Feature
-about: Describe this issue purpose.
+about: Use this template when creating issues for features that need to be implemented.
 title: ''
 labels: ''
 assignees: ''
