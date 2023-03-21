@@ -11,7 +11,8 @@ assignees: ''
 - 
 
 **Overview of the functionality the tests should pass**
-- These tests should verify that...
+These tests should verify that...
+- 
 
 **Developer notes**
 -
