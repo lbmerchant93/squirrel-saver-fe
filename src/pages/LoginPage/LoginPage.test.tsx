@@ -6,11 +6,11 @@ import LoginPage from './LoginPage';
 import LandingPage from '../LandingPage/LandingPage';
 
 describe('Login Page', () => {
-    it.skip('Renders a welcome back message and directs the user to login through their Google account or their email/password.', () => {
+    it('Renders a welcome back message and directs the user to login through their Google account or their email/password.', () => {
         render(<BrowserRouter><LoginPage /></BrowserRouter>);
         const welcomeMessage = screen.getByText(/Welcome back!/i);
         expect(welcomeMessage).toBeInTheDocument();
-        const loginDirections = screen.getByText("Please log in to access your account! You can log in through your Google account or enter your email/password");
+        const loginDirections = screen.getByText("Please log in to access your account! You can log in through your Google account or enter your email/password.");
         expect(loginDirections).toBeInTheDocument();
     });
 
