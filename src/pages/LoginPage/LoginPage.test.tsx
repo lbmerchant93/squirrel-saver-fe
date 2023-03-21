@@ -14,7 +14,7 @@ describe('Login Page', () => {
         expect(loginDirections).toBeInTheDocument();
     });
 
-    it.skip('Renders a form to login with an email and password and calls onLogin function when login button is clicked.', () => {
+    it.only('Renders a form to login with an email and password and calls onLogin function when login button is clicked.', () => {
         render(<BrowserRouter><LoginPage /></BrowserRouter>);
         const onLogin = jest.fn();
         const emailInput = screen.getByRole('input', { name: 'Email' });
