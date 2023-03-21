@@ -3,11 +3,32 @@ import { render, screen } from '@testing-library/react';
 import LoginPage from './LoginPage';
 
 describe('Login Page', () => {
-    it('Renders a welcome back message and directs the user to login through their Google account or their email/password.', () => {
+    it.only('Renders a welcome back message and directs the user to login through their Google account or their email/password.', () => {
         render(<LoginPage />);
         const welcomeMessage = screen.getByText(/Welcome back!/i);
         expect(welcomeMessage).toBeInTheDocument();
         const loginDirections = screen.getByText("Please log in to access your account! You can log in through your Google account or enter your email/password");
         expect(loginDirections).toBeInTheDocument();
     });
+
+    it('Rends a form to login using an email and password.', () => {
+        render(<LoginPage />);
+        
+    });
+
+    it('Renders a button to login using a Google account.', () => {
+        render(<LoginPage/>)
+    })
+
+    it('Renders an error message when the user enters an incorrect email or password.', () => {
+        render(<LoginPage/>)
+    })
+
+    it('Renders a message with link to navigate the user to the CreateAccountPage if they need.', () => {
+        render(<LoginPage/>)
+    })
+
+    it('Navigates the user to the root URL once the user is logged in.', () => {
+        render(<LoginPage/>)
+    })
 });
