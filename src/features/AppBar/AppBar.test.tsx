@@ -20,7 +20,7 @@ describe('AppBar', () => {
         const loginLink = screen.getByRole('link', { name: 'Click here to login.' });
         fireEvent.click(loginLink);
         await waitFor(() => {
-            expect(screen.getByText("LoginPage")).toBeInTheDocument();
+            expect(screen.getByText("Welcome back!")).toBeInTheDocument();
         });
         fireEvent.click(appTitle);
         await waitFor(() => {

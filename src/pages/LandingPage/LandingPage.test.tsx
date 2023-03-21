@@ -40,7 +40,7 @@ describe('Landing Page', () => {
         const loginLink = screen.getByRole('link', { name: 'Click here to login.' });
         fireEvent.click(loginLink);
         await waitFor(() => {
-            expect(screen.getByText("LoginPage")).toBeInTheDocument();
+            expect(screen.getByText("Welcome back!")).toBeInTheDocument();
         });
     });
 
