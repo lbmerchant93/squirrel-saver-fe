@@ -15,6 +15,10 @@ const LoginPage = () => {
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const onLogin = (email: string, password: string) => {
+    console.log(email, password)
+  };
+
   return (
     <LoginPageContainer>
       <Typography variant='h2'>Welcome back!</Typography>
@@ -35,7 +39,7 @@ const LoginPage = () => {
                 inputProps={{ "data-testid": "email" }}
               />
             </Box>
-            <Box mt={3}>
+            <Box mt={1}>
               <TextField 
                 label="Password" 
                 id="Password" 
@@ -50,8 +54,8 @@ const LoginPage = () => {
                 inputProps={{ "data-testid": "password" }}
               />
             </Box>
-            <Box className="login-form-button">
-              <LoadingButton variant="outlined" color="inherit" onClick={() => console.log(email, password)} loading={isLoading}>Submit</LoadingButton>  
+            <Box mt={1}>
+              <LoadingButton variant="outlined" color="inherit" onClick={() => onLogin(email, password)} loading={isLoading}>Submit</LoadingButton>  
             </Box>
         </LoginForm>
       </Box>
