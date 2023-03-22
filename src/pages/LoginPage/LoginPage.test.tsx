@@ -31,10 +31,11 @@ describe('Login Page', () => {
         expect(loginButton).toBeInTheDocument();
     });
 
-    it.skip('Renders a button to login using a Google account and calls function to login with a google account.', () => {
+    it.only('Renders a button to login using a Google account and calls function to login with a google account.', () => {
         render(<BrowserRouter><LoginPage /></BrowserRouter>)
         const onLoginWithGoogle = jest.fn();
         const loginButtonWithGoogleButton = screen.getByRole('button', { name: 'Login With Google' });
+        expect(loginButtonWithGoogleButton).toBeInTheDocument();
     })
 
     it.skip('Renders an error message when the user enters an incorrect email or password.', () => {
