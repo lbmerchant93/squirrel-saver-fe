@@ -3,8 +3,10 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import FormLabel from '@mui/material/FormLabel';
 import Box from '@mui/material/Box';
+import LoadingButton from '@mui/lab/LoadingButton';
 import {
-  LoginPageContainer
+  LoginPageContainer,
+  LoginForm
 } from './LoginPage.styled';
 
 const LoginPage = () => {
@@ -17,8 +19,8 @@ const LoginPage = () => {
     <LoginPageContainer>
       <Typography variant='h2'>Welcome back!</Typography>
       <Typography variant='h5'>Please log in to access your account! You can log in through your Google account or enter your email/password.</Typography>
-      <Box>
-        <form>
+      <Box mt={3}>
+        <LoginForm>
           <FormLabel component="legend">Login Form</FormLabel>
             <Box mt={1}>
               <TextField 
@@ -30,9 +32,10 @@ const LoginPage = () => {
                 onChange={(e) => setEmail(e.currentTarget.value)} 
                 fullWidth={true}
                 disabled={isLoading}
+                inputProps={{ "data-testid": "email" }}
               />
             </Box>
-            <Box>
+            <Box mt={3}>
               <TextField 
                 label="Password" 
                 id="Password" 
@@ -44,9 +47,13 @@ const LoginPage = () => {
                 onChange={(e) => setPassword(e.currentTarget.value)} 
                 fullWidth={true}
                 disabled={isLoading}
+                inputProps={{ "data-testid": "password" }}
               />
             </Box>
-        </form>
+            <Box className="login-form-button">
+              <LoadingButton variant="outlined" color="inherit" onClick={() => console.log(email, password)} loading={isLoading}>Submit</LoadingButton>  
+            </Box>
+        </LoginForm>
       </Box>
     </LoginPageContainer>
   );

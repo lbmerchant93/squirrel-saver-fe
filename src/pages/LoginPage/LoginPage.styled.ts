@@ -8,3 +8,12 @@ export const LoginPageContainer = styled(Box)`
     align-items: center;
     max-width: min(80ch, 100%);
 `;
+
+export const LoginForm = styled.form`
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    margin-right: 10px;
+    margin-bottom: 10px;
+`;

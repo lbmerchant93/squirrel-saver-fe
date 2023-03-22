@@ -17,9 +17,9 @@ describe('Login Page', () => {
     it.only('Renders a form to login with an email and password and calls onLogin function when login button is clicked.', () => {
         render(<BrowserRouter><LoginPage /></BrowserRouter>);
         const onLogin = jest.fn();
-        const emailInput = screen.getByRole('input', { name: 'Email' });
-        const passwordInput = screen.getByRole('input', { name: 'Password' });
-        const loginButton = screen.getByRole('button', { name: 'Login' });
+        const emailInput = screen.getByTestId('email');
+        const passwordInput = screen.getByTestId('password');
+        const loginButton = screen.getByRole('button', { name: 'Submit' });
         fireEvent.change(emailInput, {
             target: { value: "test@test.com" },
         });
@@ -40,8 +40,8 @@ describe('Login Page', () => {
 
     it.skip('Renders an error message when the user enters an incorrect email or password.', () => {
         render(<BrowserRouter><LoginPage /></BrowserRouter>);
-        const emailInput = screen.getByRole('input', { name: 'Email' });
-        const passwordInput = screen.getByRole('input', { name: 'Password' });
+        const emailInput = screen.getByTestId('email');
+        const passwordInput = screen.getByTestId('password');
         const loginButton = screen.getByRole('button', { name: 'Login' });
         fireEvent.change(emailInput, {
             target: { value: "test@test.com" },
@@ -71,8 +71,8 @@ describe('Login Page', () => {
         );
         render(<MemoryRouter initialEntries={['/login']}>{routes}</MemoryRouter>)
         //Action to login user
-        const emailInput = screen.getByRole('input', { name: 'Email' });
-        const passwordInput = screen.getByRole('input', { name: 'Password' });
+        const emailInput = screen.getByTestId('email');
+        const passwordInput = screen.getByTestId('password');
         const loginButton = screen.getByRole('button', { name: 'Login' });
         fireEvent.change(emailInput, {
             target: { value: "test@test.com" },
