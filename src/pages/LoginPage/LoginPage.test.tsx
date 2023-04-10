@@ -33,7 +33,7 @@ describe('Login Page', () => {
 
     it('Renders a button to login using a Google account.', () => {
         render(<BrowserRouter><LoginPage /></BrowserRouter>)
-        const loginButtonWithGoogleButton = screen.getByRole('button', { name: 'Login With Google' });
+        const loginButtonWithGoogleButton = screen.getByRole('button', { name: 'Sign in with Google' });
         expect(loginButtonWithGoogleButton).toBeInTheDocument();
     })
 
