@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import FormLabel from '@mui/material/FormLabel';
@@ -8,6 +8,9 @@ import ProviderLoginButton from '../../components/ProviderLoginButton/ProviderLo
 import Divider from '@mui/material/Divider';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { PossibleRoutes } from '../../utils/constants';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { AuthContext } from '../../shared/auth-context';
+import { useNavigate } from 'react-router-dom';
 import {
   LoginPageContainer,
   LoginForm,
@@ -21,12 +24,26 @@ const LoginPage = () => {
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const isMobile = useMediaQuery('(max-width: 620px)');
+  const user = useContext(AuthContext);
+  console.log(user)
+  const auth = getAuth();
+  const navigate = useNavigate();
 
-  const onLogin = (email: string, password: string) => {
-    console.log(email, password)
+  const onLoginWithEmailAndPassword = async (email: string, password: string) => {
+    setIsLoading(true);
+    try {
+      const userLogin = await signInWithEmailAndPassword(auth, email, password);
+      user.setUserId(userLogin.user.uid)
+      setIsLoading(false)
+      navigate(`/`)
+    } catch (err: any) {
+      setError(err.message);
+      setIsLoading(false);
+      console.log(err.message);
+    };
   };
   const loginWithGoogle = () => {
-    console.log("login with google")
+    console.log("login with google");
   };
 
   return (
@@ -65,7 +82,7 @@ const LoginPage = () => {
               />
             </Box>
             <Box mt={1}>
-              <LoadingButton variant="outlined" color="inherit" onClick={() => onLogin(email, password)} loading={isLoading}>Submit</LoadingButton>  
+              <LoadingButton variant="outlined" color="inherit" onClick={() => onLoginWithEmailAndPassword(email, password)} loading={isLoading}>Submit</LoadingButton>  
             </Box>
         </LoginForm>
         {isMobile && <Box my={2}><Divider orientation="horizontal"/></Box>}
