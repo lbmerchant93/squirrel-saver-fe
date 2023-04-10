@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import LoadingButton from '@mui/lab/LoadingButton';
 import ProviderLoginButton from '../../components/ProviderLoginButton/ProviderLoginButton';
 import Divider from '@mui/material/Divider';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import {
   LoginPageContainer,
   LoginForm,
@@ -17,6 +18,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const isMobile = useMediaQuery('(max-width: 620px)');
 
   const onLogin = (email: string, password: string) => {
     console.log(email, password)
@@ -29,7 +31,7 @@ const LoginPage = () => {
     <LoginPageContainer>
       <Typography variant='h2'>Welcome back!</Typography>
       <Typography variant='h5'>Please log in to access your account! You can log in through your Google account or enter your email/password.</Typography>
-      <Box mt={3} display='flex' flexDirection='row'>
+      <Box mt={3} display='flex' flexDirection={isMobile ? 'column' : 'row'}>
         <LoginForm>
           <FormLabel component="legend">Login Form</FormLabel>
             <Box mt={1}>
@@ -64,7 +66,8 @@ const LoginPage = () => {
               <LoadingButton variant="outlined" color="inherit" onClick={() => onLogin(email, password)} loading={isLoading}>Submit</LoadingButton>  
             </Box>
         </LoginForm>
-        <Divider orientation="vertical" />
+        {isMobile && <Box my={2}><Divider orientation="horizontal"/></Box>}
+        {!isMobile && <Box mx={2}><Divider orientation="vertical"/></Box>}
         <ProviderLoginButtonContainer>
           <ProviderLoginButton 
             message={"Sign in with Google"} 

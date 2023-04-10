@@ -14,11 +14,10 @@ export const LoginForm = styled.form`
     display: flex;
     flex-direction: column;
     align-content: space-between;
-    margin-right: 16px;
 `;
 
 export const ProviderLoginButtonContainer = styled(Box)`
     display: flex;
     align-items: center;
-    margin-left: 16px;
+    justify-content: center;
 `;
