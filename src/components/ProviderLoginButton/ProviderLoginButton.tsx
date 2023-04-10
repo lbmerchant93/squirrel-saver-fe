@@ -3,24 +3,21 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import GoogleIcon from '../../shared/GoogleIcon';
 import LoadingButton from '@mui/lab/LoadingButton';
-import './ProviderLoginButton.css'
 
 interface ProviderLoginButtonsProps {
     message: string;
     isLoading: boolean;
-    loginWithGoogle: () => Promise<void>;
+    loginWithGoogle: () => void;
 }
 
 const ProviderLoginButton: React.FC<ProviderLoginButtonsProps> = (props) => {
     const { message, isLoading, loginWithGoogle } = props;
     
     return (
-        <Box className="provider-login-button">
+        <Box>
             <LoadingButton variant="outlined" onClick={() => loginWithGoogle()} color="inherit" loading={isLoading}>
                 {!isLoading && <GoogleIcon />}
-                <Box className="provider-login-text-wrapper">
-                    <Typography variant="body1">{message}</Typography>
-                </Box>
+                <Typography variant="body1" ml={1}>{message}</Typography>
             </LoadingButton>
         </Box>
     )

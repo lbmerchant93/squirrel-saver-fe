@@ -4,9 +4,12 @@ import TextField from '@mui/material/TextField';
 import FormLabel from '@mui/material/FormLabel';
 import Box from '@mui/material/Box';
 import LoadingButton from '@mui/lab/LoadingButton';
+import ProviderLoginButton from '../../components/ProviderLoginButton/ProviderLoginButton';
+import Divider from '@mui/material/Divider';
 import {
   LoginPageContainer,
-  LoginForm
+  LoginForm,
+  ProviderLoginButtonContainer
 } from './LoginPage.styled';
 
 const LoginPage = () => {
@@ -18,12 +21,15 @@ const LoginPage = () => {
   const onLogin = (email: string, password: string) => {
     console.log(email, password)
   };
+  const loginWithGoogle = () => {
+    console.log("login with google")
+  };
 
   return (
     <LoginPageContainer>
       <Typography variant='h2'>Welcome back!</Typography>
       <Typography variant='h5'>Please log in to access your account! You can log in through your Google account or enter your email/password.</Typography>
-      <Box mt={3}>
+      <Box mt={3} display='flex' flexDirection='row'>
         <LoginForm>
           <FormLabel component="legend">Login Form</FormLabel>
             <Box mt={1}>
@@ -58,6 +64,14 @@ const LoginPage = () => {
               <LoadingButton variant="outlined" color="inherit" onClick={() => onLogin(email, password)} loading={isLoading}>Submit</LoadingButton>  
             </Box>
         </LoginForm>
+        <Divider orientation="vertical" />
+        <ProviderLoginButtonContainer>
+          <ProviderLoginButton 
+            message={"Sign in with Google"} 
+            isLoading={isLoading}
+            loginWithGoogle={loginWithGoogle}
+          />
+        </ProviderLoginButtonContainer>
       </Box>
     </LoginPageContainer>
   );
