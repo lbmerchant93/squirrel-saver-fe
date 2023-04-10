@@ -53,7 +53,7 @@ describe('Login Page', () => {
         expect(passwordErrorMessage).toBeInTheDocument();
     })
 
-    it.skip('Renders a message with link to navigate the user to the CreateAccountPage if they need.', () => {
+    it('Renders a message with link to navigate the user to the CreateAccountPage if they need.', () => {
         render(<BrowserRouter><LoginPage /></BrowserRouter>)
         const createAccountMessage = screen.getByText("Need an account?")
         expect(createAccountMessage).toBeInTheDocument();

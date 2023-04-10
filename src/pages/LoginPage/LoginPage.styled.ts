@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro';
 import Box from '@mui/material/Box';
+import { Link } from 'react-router-dom';
 
 export const LoginPageContainer = styled(Box)`
     display: flex;
@@ -20,4 +21,12 @@ export const ProviderLoginButtonContainer = styled(Box)`
     display: flex;
     align-items: center;
     justify-content: center;
+`;
+
+export const CreateAccountLink = styled(Link)`
+    padding: 3px;
+    :hover {
+        border-radius: 5px;
+        background-color: #e0e0e0;
+    }
 `;

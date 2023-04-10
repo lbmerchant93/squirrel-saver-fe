@@ -7,10 +7,12 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import ProviderLoginButton from '../../components/ProviderLoginButton/ProviderLoginButton';
 import Divider from '@mui/material/Divider';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { PossibleRoutes } from '../../utils/constants';
 import {
   LoginPageContainer,
   LoginForm,
-  ProviderLoginButtonContainer
+  ProviderLoginButtonContainer,
+  CreateAccountLink
 } from './LoginPage.styled';
 
 const LoginPage = () => {
@@ -76,6 +78,9 @@ const LoginPage = () => {
           />
         </ProviderLoginButtonContainer>
       </Box>
+      <Typography variant="caption" mt={2}>
+        Need an account? <CreateAccountLink to={`${PossibleRoutes.CREATE_ACCOUNT}`}>Register</CreateAccountLink>
+      </Typography>
     </LoginPageContainer>
   );
 };
