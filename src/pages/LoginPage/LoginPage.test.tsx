@@ -31,9 +31,8 @@ describe('Login Page', () => {
         expect(loginButton).toBeInTheDocument();
     });
 
-    it.only('Renders a button to login using a Google account and calls function to login with a google account.', () => {
+    it('Renders a button to login using a Google account.', () => {
         render(<BrowserRouter><LoginPage /></BrowserRouter>)
-        const onLoginWithGoogle = jest.fn();
         const loginButtonWithGoogleButton = screen.getByRole('button', { name: 'Login With Google' });
         expect(loginButtonWithGoogleButton).toBeInTheDocument();
     })
