@@ -28,7 +28,7 @@ describe('AppBar', () => {
         });
     })
 
-    it.skip('Renders a logout button when a user is logged in.', () => {
+    it.skip('Renders a logout button when a user is logged in and a login button when a user is not logged in.', () => {
         render(<AppBar />);
         // Action to assign user as logged in, working here to get test to pass
 

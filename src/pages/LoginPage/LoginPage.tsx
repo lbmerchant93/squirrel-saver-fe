@@ -8,7 +8,7 @@ import ProviderLoginButton from '../../components/ProviderLoginButton/ProviderLo
 import Divider from '@mui/material/Divider';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { PossibleRoutes } from '../../utils/constants';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { AuthContext } from '../../shared/auth-context';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -41,9 +41,19 @@ const LoginPage = () => {
       console.log(err.message);
     };
   };
-  const loginWithGoogle = () => {
-    console.log("login with google");
-  };
+  const loginWithGoogle = async () => {
+    setIsLoading(true)
+    try {
+        const userLogin = await signInWithPopup(auth, new GoogleAuthProvider());
+        user.setUserId(userLogin.user.uid)
+        setIsLoading(false)
+        navigate(`/`)
+    } catch (err: any) {
+        setIsLoading(false)
+        setError(err.message);
+        console.log('error signing in', err.message);
+    }
+};
 
   return (
     <LoginPageContainer>
