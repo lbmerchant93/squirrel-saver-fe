@@ -25,7 +25,6 @@ const LoginPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const isMobile = useMediaQuery('(max-width: 620px)');
   const user = useContext(AuthContext);
-  console.log(user)
   const auth = getAuth();
   const navigate = useNavigate();
 
