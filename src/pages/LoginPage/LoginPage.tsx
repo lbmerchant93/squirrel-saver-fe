@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import FormLabel from '@mui/material/FormLabel';
@@ -29,7 +29,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const onLoginWithEmailAndPassword = async (event: { preventDefault: () => void; }) => {
-    event?.preventDefault()
+    event.preventDefault()
     setIsLoading(true);
     try {
       const userLogin = await signInWithEmailAndPassword(auth, email, password);
@@ -55,7 +55,13 @@ const LoginPage = () => {
         setError(err.message);
         console.log('error signing in', err.message);
     }
-};
+  };
+
+  useEffect(() => {
+    if (user.isLoggedIn) {
+      navigate(`/`)
+    }
+  }, [navigate, user])
 
   return (
     <LoginPageContainer>
