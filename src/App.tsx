@@ -5,12 +5,7 @@ import AppBar from './features/AppBar/AppBar';
 import CreateAccountPage from './pages/CreateAccountPage/CreateAccountPage';
 import LandingPage from './pages/LandingPage/LandingPage';
 import LoginPage from './pages/LoginPage/LoginPage';
-import { initializeApp } from 'firebase/app';
-import firebaseConfig from './configs/firebase.configs';
 import AuthProvider from './App.authProvider';
-
-initializeApp(firebaseConfig);
-//Working here, need to create login form to test firebaseConfig
 
 const App = () => {
 

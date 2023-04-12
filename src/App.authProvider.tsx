@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useState, useEffect } from 'react';
 import { AuthContext } from './shared/auth-context';
 import { 
     getAuth, 
@@ -20,35 +20,40 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
     const [displayName, setDisplayName] = useState<string | null | undefined>('');
     const [email, setEmail] = useState<string | null>('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [providerId, setProviderId] = useState<string | null>('');
-    const [refreshToken, setRefreshToken] = useState<string | null>('');
+    // const [providerId, setProviderId] = useState<string | null>('');
+    // const [refreshToken, setRefreshToken] = useState<string | null>('');
     const [userId, setUserId] = useState<string | undefined>(undefined);
 
-    onAuthStateChanged(auth, async (user) => {
-        // conditional to check data from useUser to match user from firebase ?
-        if (user) {
-            try {
-                const bearerToken = await user.getIdToken();
-                localStorage.setItem('token', bearerToken);
-            } catch (e) {
-                console.log('getIdToken failure', e);
-                const newToken = await getAuth().currentUser?.getIdToken();
-                localStorage.setItem('token', newToken ?? '');
+    useEffect(() => {
+        const listen = onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                try {
+                    const bearerToken = await user.getIdToken();
+                    localStorage.setItem('token', bearerToken);
+                } catch (e) {
+                    console.log('getIdToken failure', e);
+                    const newToken = await getAuth().currentUser?.getIdToken();
+                    localStorage.setItem('token', newToken ?? '');
+                }
+                setEmail(user.email);
+                setIsLoggedIn(true);
+                // setProviderId(providerId);
+                // setRefreshToken(refreshToken);
+                setUserId(user.uid);
+            } else {
+                localStorage.setItem('token', '');
+                setUserId(undefined);
+                setDisplayName('');
+                setEmail('');
+                setIsLoggedIn(false);
+                signOut(auth);
             }
-            setEmail(user.email);
-            setIsLoggedIn(true);
-            setProviderId(providerId);
-            setRefreshToken(refreshToken);
-            setUserId(user.uid);
-        } else {
-            localStorage.setItem('token', '');
-            setDisplayName('');
-            setEmail('');
-            setIsLoggedIn(false);
-            signOut(auth);
-            setUserId(undefined);
-        }
-    })
+        })
+
+        return () => {
+            listen();
+        };
+    }, []);
 
     return (
         <AuthContext.Provider 

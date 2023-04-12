@@ -40,7 +40,7 @@ describe('Landing Page', () => {
         const loginLink = screen.getByRole('link', { name: 'Click here to login.' });
         fireEvent.click(loginLink);
         await waitFor(() => {
-            expect(screen.getByText("LoginPage")).toBeInTheDocument();
+            expect(screen.getByText("Welcome back!")).toBeInTheDocument();
         });
     });
 
@@ -66,5 +66,9 @@ describe('Landing Page', () => {
         await waitFor(() => {
             expect(screen.getByText("CreateAccountPage")).toBeInTheDocument();
         });
+    });
+
+    it.skip('Renders the HomePage component when the user is logged in', () => {
+        render(<BrowserRouter><LandingPage /></BrowserRouter>);
     });
 });
