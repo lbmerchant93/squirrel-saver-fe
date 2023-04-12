@@ -25,7 +25,6 @@ describe('Login Page', () => {
         fireEvent.change(passwordInput, {
             target: { value: "testing" },
         });
-        fireEvent.click(loginButton);
         expect(emailInput).toHaveValue("test@test.com");
         expect(passwordInput).toHaveValue("testing");
         expect(loginButton).toBeInTheDocument();

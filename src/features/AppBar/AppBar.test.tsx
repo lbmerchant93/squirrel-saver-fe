@@ -1,6 +1,9 @@
 import React from 'react';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { Routes, Route, BrowserRouter, MemoryRouter } from 'react-router-dom';
+import { PossibleRoutes } from '../../utils/constants';
+import LoginPage from '../../pages/LoginPage/LoginPage';
+import LandingPage from '../../pages/LandingPage/LandingPage';
 import AppBar from './AppBar';
 import App from '../../App';
 
@@ -28,8 +31,30 @@ describe('AppBar', () => {
         });
     })
 
+    it('Renders a login button when a user is not logged in and navigates the user to the LoginPage.', async () => {
+        const routes = (
+            <Routes>
+              <Route path={`${PossibleRoutes.ROOT}`} element={<LandingPage />} />
+              <Route path={`${PossibleRoutes.LOGIN}`} element={<LoginPage />} />
+            </Routes>
+        );
+        render(
+            <MemoryRouter initialEntries={['/']}>
+                <AppBar/>
+                {routes}
+            </MemoryRouter>
+        )
+        // Check that a button with text login is on the screen
+        const loginButton = screen.getByRole("button", {name: /Login/i});
+        expect(loginButton).toBeInTheDocument();
+        fireEvent.click(loginButton);
+        // Check the button navigated the user to the LoginPage
+        await waitFor(() => {
+            expect(screen.getByText("Welcome back!")).toBeInTheDocument();
+        });
+    });
+
     it.skip('Renders a logout button when a user is logged in and a login button when a user is not logged in.', () => {
-        render(<AppBar />);
         // Action to assign user as logged in, working here to get test to pass
 
         // Check that a button with text logout is on the screen

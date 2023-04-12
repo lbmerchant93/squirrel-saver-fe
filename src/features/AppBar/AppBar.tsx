@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import { PossibleRoutes } from '../../utils/constants';
 import MUIAppBar from '@mui/material/AppBar';
 import { AuthContext } from '../../shared/auth-context';
-import { getAuth, signOut } from 'firebase/auth';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../configs/firebase.configs';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import { 
@@ -14,7 +15,6 @@ import {
 
 const AppBar = () => {
     const user = useContext(AuthContext);
-    const auth = getAuth();
     const navigate = useNavigate();
     const logout = () => {
         signOut(auth);

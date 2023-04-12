@@ -1,3 +1,6 @@
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+
 const firebaseConfig = {
     apiKey: "AIzaSyAFA98anx3pHV_EEhuY_molR_8FCxJWXx4",
     authDomain: "squirrel-saver.firebaseapp.com",
@@ -8,4 +11,5 @@ const firebaseConfig = {
     measurementId: "G-YTERKFKLE6"
 };
 
-  export default firebaseConfig;
+export const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);

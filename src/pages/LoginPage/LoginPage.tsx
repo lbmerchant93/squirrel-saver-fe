@@ -8,7 +8,8 @@ import ProviderLoginButton from '../../components/ProviderLoginButton/ProviderLo
 import Divider from '@mui/material/Divider';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { PossibleRoutes } from '../../utils/constants';
-import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { auth } from '../../configs/firebase.configs';
 import { AuthContext } from '../../shared/auth-context';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -25,7 +26,6 @@ const LoginPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const isMobile = useMediaQuery('(max-width: 620px)');
   const user = useContext(AuthContext);
-  const auth = getAuth();
   const navigate = useNavigate();
 
   const onLoginWithEmailAndPassword = async (event: { preventDefault: () => void; }) => {
