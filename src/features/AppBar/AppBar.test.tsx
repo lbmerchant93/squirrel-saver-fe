@@ -64,12 +64,35 @@ describe('AppBar', () => {
         });
     });
 
-    it.skip('Renders a logout button when a user is logged in and a login button when a user is not logged in.', () => {
+    it.skip('Renders a logout button when a user is logged in and a login button when a user is not logged in.', async () => {
+        const routes = (
+            <Routes>
+              <Route path={`${PossibleRoutes.ROOT}`} element={<LandingPage />} />
+              <Route path={`${PossibleRoutes.LOGIN}`} element={<LoginPage />} />
+            </Routes>
+        );
+        render(
+            <MemoryRouter initialEntries={['/login']}>
+                <AppBar/>
+                {routes}
+            </MemoryRouter>
+        )
         // Action to assign user as logged in, working here to get test to pass
-
+        const emailInput = screen.getByTestId('email');
+        const passwordInput = screen.getByTestId('password');
+        const loginButton = screen.getByRole('button', { name: 'Submit' });
+        fireEvent.change(emailInput, {
+            target: { value: "test@test.com" },
+        });
+        fireEvent.change(passwordInput, {
+            target: { value: "testing" },
+        });
+        fireEvent.click(loginButton);
         // Check that a button with text logout is on the screen
-        const logoutButton = screen.getByRole("button", {name: /Logout/i});
-        expect(logoutButton).toBeInTheDocument();
+        await waitFor(() => {
+            const logoutButton = screen.getByRole("button", {name: /Logout/i});
+            expect(logoutButton).toBeInTheDocument();
+        });
     });
 })
 

@@ -80,7 +80,7 @@ describe('Login Page', () => {
         });
         fireEvent.click(loginButton);
         await waitFor(() => {
-            expect(screen.getByText("Welcome back!")).toBeInTheDocument();
+            expect(screen.getByText("Welcome to Squirrel Saver!")).toBeInTheDocument();
         });
     })
 });
