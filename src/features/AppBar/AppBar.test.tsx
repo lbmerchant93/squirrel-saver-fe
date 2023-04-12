@@ -5,7 +5,6 @@ import { PossibleRoutes } from '../../utils/constants';
 import LoginPage from '../../pages/LoginPage/LoginPage';
 import LandingPage from '../../pages/LandingPage/LandingPage';
 import AppBar from './AppBar';
-import App from '../../App';
 
 describe('AppBar', () => {
     it('Renders the App title and doesn\'t render the logout button if the user is not logged in.', () => {
@@ -18,7 +17,18 @@ describe('AppBar', () => {
     });
 
     it('Directs user to the LandingPage when clicking on app title', async () => {
-        render(<App />);
+        const routes = (
+            <Routes>
+              <Route path={`${PossibleRoutes.ROOT}`} element={<LandingPage />} />
+              <Route path={`${PossibleRoutes.LOGIN}`} element={<LoginPage />} />
+            </Routes>
+        );
+        render(
+            <MemoryRouter initialEntries={['/']}>
+                <AppBar/>
+                {routes}
+            </MemoryRouter>
+        )
         const appTitle = screen.getByText("Squirrel Saver");
         const loginLink = screen.getByRole('link', { name: 'Click here to login.' });
         fireEvent.click(loginLink);
