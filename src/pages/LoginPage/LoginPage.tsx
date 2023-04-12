@@ -28,7 +28,8 @@ const LoginPage = () => {
   const auth = getAuth();
   const navigate = useNavigate();
 
-  const onLoginWithEmailAndPassword = async (email: string, password: string) => {
+  const onLoginWithEmailAndPassword = async (event: { preventDefault: () => void; }) => {
+    event?.preventDefault()
     setIsLoading(true);
     try {
       const userLogin = await signInWithEmailAndPassword(auth, email, password);
@@ -41,6 +42,7 @@ const LoginPage = () => {
       console.log(err.message);
     };
   };
+
   const loginWithGoogle = async () => {
     setIsLoading(true)
     try {
@@ -60,7 +62,7 @@ const LoginPage = () => {
       <Typography variant='h2'>Welcome back!</Typography>
       <Typography variant='h5'>Please log in to access your account! You can log in through your Google account or enter your email/password.</Typography>
       <Box mt={3} display='flex' flexDirection={isMobile ? 'column' : 'row'}>
-        <LoginForm>
+        <LoginForm onSubmit={onLoginWithEmailAndPassword}>
           <FormLabel component="legend">Login Form</FormLabel>
             <Box mt={1}>
               <TextField 
@@ -91,7 +93,7 @@ const LoginPage = () => {
               />
             </Box>
             <Box mt={1}>
-              <LoadingButton variant="outlined" color="inherit" onClick={() => onLoginWithEmailAndPassword(email, password)} loading={isLoading}>Submit</LoadingButton>  
+              <LoadingButton type="submit" variant="outlined" color="inherit" loading={isLoading}>Submit</LoadingButton>  
             </Box>
         </LoginForm>
         {isMobile && <Box my={2}><Divider orientation="horizontal"/></Box>}
