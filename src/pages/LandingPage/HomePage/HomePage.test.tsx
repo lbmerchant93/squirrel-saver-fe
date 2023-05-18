@@ -8,6 +8,8 @@ describe('Landing Page', () => {
         email: "test@test.com",
         id: "1",
         isLoggedIn: true,
+        savingsRange: [1, 100],
+        numbersDrawn: [88, 17, 39],
         setDisplayName: () => {},
         setUserId: () => {}
     };
