@@ -20,10 +20,6 @@ describe('Landing Page', () => {
         expect(welcomeMessage).toBeInTheDocument();
     });
 
-    it.skip('Renders a way for the user to select their target savings range if they don\'t already have one. Will also explain the details of how the app works.', () => {
-        render(<HomePage user={testUser} />);
-    });
-
     it.skip('Renders the saving range the user has selected.', () => {
         render(<HomePage user={testUser} />);
     });
