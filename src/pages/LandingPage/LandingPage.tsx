@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import { PossibleRoutes } from '../../utils/constants';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../shared/auth-context';
+import HomePage from './HomePage/HomePage';
 import {
   LandingPageContainer
 } from './LandingPage.styled';
@@ -24,7 +25,7 @@ const LandingPage = () => {
   };
 
   return (
-    <div>HomePage</div>
+    <HomePage user={user} />
   );
 };
 
