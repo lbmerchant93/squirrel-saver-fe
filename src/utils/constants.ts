@@ -9,5 +9,5 @@ export const mockUserData = {
     email: "test@test.com",
     id: "1",
     savingsRange: [1, 100],
-    numbersDrawn: [88, 17, 39]
+    numbersDrawn: [99, 17, 42, 6, 10]
 };

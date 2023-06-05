@@ -3,6 +3,7 @@ import { User } from '../../../shared/auth-context';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import { mockUserData } from '../../../utils/constants';
 import { HomePageContainer } from './HomePage.styled';
 
 interface HomePageProps {
@@ -11,6 +12,22 @@ interface HomePageProps {
 
 const HomePage: React.FC<HomePageProps> = (props) => {
     // const { user } = props;
+
+    const totalSaved = mockUserData.numbersDrawn.reduce((num, acc) => {
+        return acc + num
+    }, 0);
+
+    const summation = (n: number) => {
+        let sum = 0;
+        for (let i = 0; i < n + 1; i++) {
+            sum += i
+        };
+        return sum;
+    };
+
+    const savingsSummation = summation(mockUserData.savingsRange[1]);
+
+    const percentageCompleted = Math.round((totalSaved/savingsSummation) * 100);
     
     return (
         <HomePageContainer>
@@ -19,8 +36,8 @@ const HomePage: React.FC<HomePageProps> = (props) => {
                 <Box height={300} width={300} borderRight="1px solid black" display="flex" flexDirection="column" alignItems="center" flexShrink={0} pt={1}>
                     <Typography variant="h6">Progress towards goal:</Typography>
                     <Box height={200} width={200} border="1px solid black" borderRadius="50%" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-                        <Typography variant="h6">$174 of $5050</Typography>
-                        <Typography variant="h6">3%</Typography>
+                        <Typography variant="h6">${totalSaved} of ${savingsSummation}</Typography>
+                        <Typography variant="h6">{percentageCompleted}%</Typography>
                     </Box>
                 </Box>
                 <Box height={300} flexGrow={1}>
