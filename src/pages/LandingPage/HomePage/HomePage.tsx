@@ -28,6 +28,9 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     const savingsSummation = summation(mockUserData.savingsRange[1]);
 
     const percentageCompleted = Math.round((totalSaved/savingsSummation) * 100);
+
+    // Use .slice to make a copy of the original array because .sort mutates the original
+    const numbersDrawnInAccendingOrder = mockUserData.numbersDrawn.slice().sort((a, b) => a - b).join(", ");
     
     return (
         <HomePageContainer>
@@ -59,20 +62,20 @@ const HomePage: React.FC<HomePageProps> = (props) => {
                 <Box height={100} display="flex" borderBottom="1px solid black">
                     <Box width="100%" borderRight="1px solid black" pt={1}>
                         <Typography variant="h6">Last number saved:</Typography>
-                        <Typography variant="h6">10</Typography>
+                        <Typography variant="h6">{mockUserData.numbersDrawn[mockUserData.numbersDrawn.length - 1]}</Typography>
                     </Box>
                     <Box width="100%" pt={1}>
                         <Typography variant="h6">Times drawn:</Typography>
-                        <Typography variant="h6">5</Typography>
+                        <Typography variant="h6">{mockUserData.numbersDrawn.length}</Typography>
                     </Box>
                 </Box>
                 <Box height={150} borderBottom="1px solid black" pt={1}>
                     <Typography variant="h6">Numbers in drawn order:</Typography>
-                    <Typography variant="h6">99, 17, 42, 6, 10</Typography>
+                    <Typography variant="h6">{mockUserData.numbersDrawn.join(", ")}</Typography>
                 </Box>
                 <Box height={150} pt={1}>
                     <Typography variant="h6">Numbers in ascending order:</Typography>
-                    <Typography variant="h6">6, 10, 17, 42, 99</Typography>
+                    <Typography variant="h6">{numbersDrawnInAccendingOrder}</Typography>
                 </Box>
             </Box>
         </HomePageContainer>
