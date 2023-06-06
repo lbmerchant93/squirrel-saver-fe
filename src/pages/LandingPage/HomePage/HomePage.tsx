@@ -4,6 +4,8 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { mockUserData } from '../../../utils/constants';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Divider from '@mui/material/Divider';
 import { HomePageContainer, DrawnNumbersContainer } from './HomePage.styled';
 
 interface HomePageProps {
@@ -12,6 +14,8 @@ interface HomePageProps {
 
 const HomePage: React.FC<HomePageProps> = (props) => {
     // const { user } = props;
+    const isMobile = useMediaQuery('(max-width:580px)');
+    const isTablet = useMediaQuery('(max-width:630px)');
 
     const totalSaved = mockUserData.numbersDrawn.reduce((num, acc) => {
         return acc + num
@@ -35,48 +39,50 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     return (
         <HomePageContainer>
             <Typography variant='h2'>Welcome back!</Typography>
-            <Box mt={5} display="flex" flexDirection="row" width="100%">
-                <Box height={300} width={300} borderRight="1px solid black" display="flex" flexDirection="column" alignItems="center" flexShrink={0} pt={1}>
-                    <Typography variant="h6">Progress towards goal:</Typography>
+            <Box mt={5} display="flex" justifyContent="space-evenly" flexDirection={isTablet ? "column" : "row"} width="100%">
+                <Box height={275} width={isTablet ? "100%" : 300} display="flex" flexDirection="column" alignItems="center" pt={1} flexShrink={0}>
+                    <Typography variant="h6" mb={1}>Progress towards goal:</Typography>
                     <Box height={200} width={200} border="1px solid black" borderRadius="50%" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
                         <Typography variant="h6">${totalSaved} of ${savingsSummation}</Typography>
                         <Typography variant="h6">{percentageCompleted}%</Typography>
                     </Box>
                 </Box>
-                <Box height={300} flexGrow={1}>
-                    <Box borderBottom="1px solid black" height={150} width="100%" minWidth={300} pt={1} display="flex" flexDirection="column" alignItems="center">
-                        <Typography variant="h6">Draw next number:</Typography>
-                        <Typography variant="h6">#</Typography>
-                        <Box display="flex" justifyContent="space-evenly" width={250} mt={2}>
+                <Divider orientation={isTablet ? "horizontal" : "vertical"} variant="middle"/>
+                <Box height="100%">
+                    <Box height="100%" width={isTablet ? "100%" : 300} minWidth={300} pt={1} display="flex" flexDirection="column" alignItems="center">
+                        <Typography variant="h6" mb={4}>Draw next number:</Typography>
+                        <Typography variant="h6" mb={4}>#</Typography>
+                        <Box display="flex" justifyContent="space-evenly" width={250}>
                             <Button variant="contained" color="inherit">Draw/Again</Button>
                             <Button variant="contained" color="success">Save</Button>  
                         </Box>
                     </Box>
-                    <Box height={150} width="100%" pt={1}>
+                    
+                </Box>
+            </Box>
+            <Box mt={5} display="flex" flexDirection="column" width="100%" border="1px solid black">
+                <Box width="100%" display="flex" justifyContent="space-evenly" flexDirection={isMobile ? "column" : "row"} borderBottom="1px solid black">
+                    <Box display="flex" justifyContent="center" flexDirection="column" minWidth={150} borderRight={isMobile ? "none" : "1px solid black"} borderBottom={isMobile ? "1px solid black" : "none"} py={1} px={2}>
+                        <Typography variant="h6">Last saved:</Typography>
+                        <Typography variant="h6">{mockUserData.numbersDrawn[mockUserData.numbersDrawn.length - 1]}</Typography>
+                    </Box>
+                    <Box display="flex" justifyContent="center" flexDirection="column" minWidth={150} borderRight={isMobile ? "none" : "1px solid black"} borderBottom={isMobile ? "1px solid black" : "none"} py={1} px={2}>
+                        <Typography variant="h6">Times drawn:</Typography>
+                        <Typography variant="h6">{mockUserData.numbersDrawn.length}</Typography>
+                    </Box>
+                    <Box display="flex" justifyContent="center" flexDirection="column" minWidth={150} py={1} px={2}>
                         <Typography variant="h6">Savings range:</Typography>
                         <Typography variant="h6">{`1 -> 100`}</Typography>
                     </Box>
                 </Box>
-            </Box>
-            <Box mt={5} display="flex" flexDirection="column" width="100%" border="1px solid black">
-                <Box height={100} display="flex" borderBottom="1px solid black">
-                    <Box width="100%" borderRight="1px solid black" pt={1}>
-                        <Typography variant="h6">Last number saved:</Typography>
-                        <Typography variant="h6">{mockUserData.numbersDrawn[mockUserData.numbersDrawn.length - 1]}</Typography>
-                    </Box>
-                    <Box width="100%" pt={1}>
-                        <Typography variant="h6">Times drawn:</Typography>
-                        <Typography variant="h6">{mockUserData.numbersDrawn.length}</Typography>
-                    </Box>
-                </Box>
-                <Box display="flex" borderBottom="1px solid black">
-                    <Box display="flex" justifyContent="center" width="100%" borderRight="1px solid black" py={1} px={2}>
+                <Box display="flex" flexDirection={isMobile ? "column" : "row"}>
+                    <Box display="flex" justifyContent="center" borderRight={isMobile ? "none" : "1px solid black"} borderBottom={isMobile ? "1px solid black" : "none"} py={1} px={2}>
                         <DrawnNumbersContainer>
                             <Typography variant="h6">Drawn order:</Typography>
                             <Typography variant="h6">{mockUserData.numbersDrawn.join(", ")}</Typography>
                         </DrawnNumbersContainer>
                     </Box>
-                    <Box display="flex" justifyContent="center" width="100%" py={1} px={2}>
+                    <Box display="flex" justifyContent="center" py={1} px={2}>
                         <DrawnNumbersContainer>
                             <Typography variant="h6">Ascending order:</Typography>
                             <Typography variant="h6">{numbersDrawnInAscendingOrder}</Typography>
