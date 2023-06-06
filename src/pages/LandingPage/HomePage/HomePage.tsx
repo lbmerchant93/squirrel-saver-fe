@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { mockUserData } from '../../../utils/constants';
-import { HomePageContainer } from './HomePage.styled';
+import { HomePageContainer, DrawnNumbersContainer } from './HomePage.styled';
 
 interface HomePageProps {
     user: User;
@@ -30,7 +30,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     const percentageCompleted = Math.round((totalSaved/savingsSummation) * 100);
 
     // Use .slice to make a copy of the original array because .sort mutates the original
-    const numbersDrawnInAccendingOrder = mockUserData.numbersDrawn.slice().sort((a, b) => a - b).join(", ");
+    const numbersDrawnInAscendingOrder = mockUserData.numbersDrawn.slice().sort((a, b) => a - b).join(", ");
     
     return (
         <HomePageContainer>
@@ -69,14 +69,22 @@ const HomePage: React.FC<HomePageProps> = (props) => {
                         <Typography variant="h6">{mockUserData.numbersDrawn.length}</Typography>
                     </Box>
                 </Box>
-                <Box height={150} borderBottom="1px solid black" pt={1}>
-                    <Typography variant="h6">Numbers in drawn order:</Typography>
-                    <Typography variant="h6">{mockUserData.numbersDrawn.join(", ")}</Typography>
+                <Box display="flex" borderBottom="1px solid black">
+                    <Box display="flex" justifyContent="center" width="100%" borderRight="1px solid black" py={1} px={2}>
+                        <DrawnNumbersContainer>
+                            <Typography variant="h6">Drawn order:</Typography>
+                            <Typography variant="h6">{mockUserData.numbersDrawn.join(", ")}</Typography>
+                        </DrawnNumbersContainer>
+                    </Box>
+                    <Box display="flex" justifyContent="center" width="100%" py={1} px={2}>
+                        <DrawnNumbersContainer>
+                            <Typography variant="h6">Ascending order:</Typography>
+                            <Typography variant="h6">{numbersDrawnInAscendingOrder}</Typography>
+                        </DrawnNumbersContainer>
+                    </Box>
+                    
                 </Box>
-                <Box height={150} pt={1}>
-                    <Typography variant="h6">Numbers in ascending order:</Typography>
-                    <Typography variant="h6">{numbersDrawnInAccendingOrder}</Typography>
-                </Box>
+                
             </Box>
         </HomePageContainer>
     );
