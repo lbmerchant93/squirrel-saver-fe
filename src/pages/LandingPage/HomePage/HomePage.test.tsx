@@ -9,7 +9,7 @@ describe('Landing Page', () => {
         id: "1",
         isLoggedIn: true,
         savingsRange: [1, 100],
-        numbersDrawn: [88, 17, 39],
+        numbersDrawn: [99, 17, 42, 6, 10, 38, 87, 2, 22, 31, 14, 100, 45, 41, 79, 16, 49, 55, 62, 8, 97, 13, 58, 11, 73, 23],
         setDisplayName: () => {},
         setUserId: () => {}
     };
@@ -20,8 +20,10 @@ describe('Landing Page', () => {
         expect(welcomeMessage).toBeInTheDocument();
     });
 
-    it.skip('Renders the saving range the user has selected.', () => {
+    it('Renders the saving range the user has selected.', () => {
         render(<HomePage user={testUser} />);
+        const savingRange = screen.getByText("1 -> 100");
+        expect(savingRange).toBeInTheDocument();
     });
 
     it.skip('Renders the numbers the user has drawn in ascending order.', () => {
