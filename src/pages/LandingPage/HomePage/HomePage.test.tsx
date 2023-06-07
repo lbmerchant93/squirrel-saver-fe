@@ -50,7 +50,9 @@ describe('Landing Page', () => {
         expect(timesDrawn).toBeInTheDocument();
     });
 
-    it.skip('Renders the most previously drawn number.', () => {
+    it('Renders the most previously drawn number.', () => {
         render(<HomePage user={testUser} />);
+        const lastSaved = screen.getByText("Last saved:");
+        expect(lastSaved).toBeInTheDocument();
     });
 });
