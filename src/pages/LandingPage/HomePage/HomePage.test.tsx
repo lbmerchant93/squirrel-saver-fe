@@ -38,8 +38,10 @@ describe('Landing Page', () => {
         expect(drawnOrder).toBeInTheDocument();
     });
 
-    it.skip('Renders an illustration of how close the user is to their total savings goal.', () => {
+    it('Renders an illustration of how close the user is to their total savings goal.', () => {
         render(<HomePage user={testUser} />);
+        const progressSection = screen.getByText("Progress towards goal:");
+        expect(progressSection).toBeInTheDocument();
     });
 
     it.skip('Renders how many times the user has drawn numbers.', () => {
