@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { User } from '../../../shared/auth-context';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -16,6 +16,13 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     // const { user } = props;
     const isMobile = useMediaQuery('(max-width:580px)');
     const isTablet = useMediaQuery('(max-width:630px)');
+
+    const drawNumber = () => {
+        let index = Math.floor(Math.random() * mockUserData.numbersNotDrawn.length);
+        return mockUserData.numbersNotDrawn[index];
+    };
+
+    const [nextNumber, setNextNumber] = useState<number>(drawNumber());
 
     const totalSaved = mockUserData.numbersDrawn.reduce((num, acc) => {
         return acc + num
@@ -51,7 +58,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
                 <Box height="100%">
                     <Box height="100%" width={isTablet ? "100%" : 300} minWidth={300} pt={1} display="flex" flexDirection="column" alignItems="center">
                         <Typography variant="h6" mb={4}>Draw next number:</Typography>
-                        <Typography variant="h6" mb={4}>#</Typography>
+                        <Typography variant="h6" mb={4}>{nextNumber}</Typography>
                         <Box display="flex" justifyContent="space-evenly" width={250}>
                             <Button variant="contained" color="inherit">Draw/Again</Button>
                             <Button variant="contained" color="success">Save</Button>  
