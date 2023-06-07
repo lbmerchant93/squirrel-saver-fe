@@ -26,8 +26,10 @@ describe('Landing Page', () => {
         expect(savingRange).toBeInTheDocument();
     });
 
-    it.skip('Renders the numbers the user has drawn in ascending order.', () => {
+    it('Renders the numbers the user has drawn in ascending order.', () => {
         render(<HomePage user={testUser} />);
+        const ascendingOrder = screen.getByText("Ascending order:");
+        expect(ascendingOrder).toBeInTheDocument();
     });
 
     it.skip('Renders the numbers the user has drawn in drawing order.', () => {
