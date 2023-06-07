@@ -5,6 +5,8 @@ export interface User {
     email: string | null;
     id: string | undefined;
     isLoggedIn: boolean;
+    savingsRange: number[] | null;
+    numbersDrawn: number[] | null;
     setDisplayName: Dispatch<SetStateAction<string | null | undefined>>;
     setUserId: Dispatch<SetStateAction<string | undefined>>;
 }
@@ -14,6 +16,8 @@ export const AuthContext = createContext<User>({
     email: '',
     id: undefined,
     isLoggedIn: false, 
+    savingsRange: [],
+    numbersDrawn: [],
     setDisplayName: () => {},
     setUserId: () => {},
 })
