@@ -44,8 +44,10 @@ describe('Landing Page', () => {
         expect(progressSection).toBeInTheDocument();
     });
 
-    it.skip('Renders how many times the user has drawn numbers.', () => {
+    it('Renders how many times the user has drawn numbers.', () => {
         render(<HomePage user={testUser} />);
+        const timesDrawn = screen.getByText("Times drawn:");
+        expect(timesDrawn).toBeInTheDocument();
     });
 
     it.skip('Renders the most previously drawn number.', () => {
