@@ -57,22 +57,27 @@ const HomePage: React.FC<HomePageProps> = (props) => {
                             <Button variant="contained" color="success">Save</Button>  
                         </Box>
                     </Box>
-                    
                 </Box>
             </Box>
-            <Box mt={5} display="flex" flexDirection="column" width="100%" border="1px solid black">
-                <Box width="100%" display="flex" justifyContent="space-evenly" flexDirection={isMobile ? "column" : "row"} borderBottom="1px solid black">
-                    <Box display="flex" justifyContent="center" flexDirection="column" minWidth={150} borderRight={isMobile ? "none" : "1px solid black"} borderBottom={isMobile ? "1px solid black" : "none"} py={1} px={2}>
-                        <Typography variant="h6">Last saved:</Typography>
-                        <Typography variant="h6">{mockUserData.numbersDrawn[mockUserData.numbersDrawn.length - 1]}</Typography>
+            <Box mt={5} display="flex" flexDirection="column" border="1px solid black">
+                <Box display="flex" flexDirection={isMobile ? "column" : "row"} borderBottom="1px solid black">
+                    <Box display="flex" justifyContent="center" flexDirection="column" borderRight={isMobile ? "none" : "1px solid black"} borderBottom={isMobile ? "1px solid black" : "none"} width={isMobile ? "auto" : "100%"} py={1} px={2}>
+                        <Box minWidth={150}>
+                            <Typography variant="h6">Last saved:</Typography>
+                            <Typography variant="h6">{mockUserData.numbersDrawn[mockUserData.numbersDrawn.length - 1]}</Typography>
+                        </Box>
                     </Box>
-                    <Box display="flex" justifyContent="center" flexDirection="column" minWidth={150} borderRight={isMobile ? "none" : "1px solid black"} borderBottom={isMobile ? "1px solid black" : "none"} py={1} px={2}>
-                        <Typography variant="h6">Times drawn:</Typography>
-                        <Typography variant="h6">{mockUserData.numbersDrawn.length}</Typography>
+                    <Box display="flex" justifyContent="center" flexDirection="column" borderRight={isMobile ? "none" : "1px solid black"} borderBottom={isMobile ? "1px solid black" : "none"} width={isMobile ? "auto" : "100%"} py={1} px={2}>
+                        <Box minWidth={150}>
+                            <Typography variant="h6">Times drawn:</Typography>
+                            <Typography variant="h6">{mockUserData.numbersDrawn.length}</Typography>
+                        </Box>
                     </Box>
-                    <Box display="flex" justifyContent="center" flexDirection="column" minWidth={150} py={1} px={2}>
-                        <Typography variant="h6">Savings range:</Typography>
-                        <Typography variant="h6">{`1 -> 100`}</Typography>
+                    <Box display="flex" justifyContent="center" flexDirection="column" width={isMobile ? "auto" : "100%"} py={1} px={2}>
+                        <Box minWidth={150}>
+                            <Typography variant="h6">Savings range:</Typography>
+                            <Typography variant="h6">{`1 -> 100`}</Typography>
+                        </Box>
                     </Box>
                 </Box>
                 <Box display="flex" flexDirection={isMobile ? "column" : "row"}>
@@ -88,9 +93,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
                             <Typography variant="h6">{numbersDrawnInAscendingOrder}</Typography>
                         </DrawnNumbersContainer>
                     </Box>
-                    
                 </Box>
-                
             </Box>
         </HomePageContainer>
     );
