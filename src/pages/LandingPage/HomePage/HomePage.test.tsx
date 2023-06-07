@@ -55,4 +55,8 @@ describe('Landing Page', () => {
         const lastSaved = screen.getByText("Last saved:");
         expect(lastSaved).toBeInTheDocument();
     });
+
+    it.skip('Renders a way to draw the next number. Number is drawn at random from the numbers the user hasn\'t saved yet.', () => {
+        render(<HomePage user={testUser} />);
+    });
 });
