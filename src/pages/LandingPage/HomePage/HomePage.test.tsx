@@ -32,8 +32,10 @@ describe('Landing Page', () => {
         expect(ascendingOrder).toBeInTheDocument();
     });
 
-    it.skip('Renders the numbers the user has drawn in drawing order.', () => {
+    it('Renders the numbers the user has drawn in drawing order.', () => {
         render(<HomePage user={testUser} />);
+        const drawnOrder = screen.getByText("Drawn order:");
+        expect(drawnOrder).toBeInTheDocument();
     });
 
     it.skip('Renders an illustration of how close the user is to their total savings goal.', () => {
