@@ -62,8 +62,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
                 <Box height="100%">
                     <Box height="100%" width={isTablet ? "100%" : 300} minWidth={300} pt={1} display="flex" flexDirection="column" alignItems="center">
                         <Typography variant="h6" mb={4}>Draw next number:</Typography>
-                        {isDrawingNumber && <Typography variant="h6" mb={4} >Drawing...</Typography>}
-                        {!isDrawingNumber && <Typography variant="h6" mb={4}>{nextNumber}</Typography>}
+                        <Typography variant="h6" mb={4} data-testid="drawn-number">{isDrawingNumber ? "Drawing..." : nextNumber}</Typography>
                         <Box display="flex" justifyContent="space-evenly" width={250}>
                             <Button variant="contained" color="inherit" onClick={drawNumber} disabled={isDrawingNumber}>{nextNumber ? "Draw Again" : "Draw"}</Button>
                             <Button variant="contained" color="success" disabled={isDrawingNumber || nextNumber === 0}>Save</Button>  

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import HomePage from './HomePage';
 
 describe('Landing Page', () => {
@@ -58,7 +58,39 @@ describe('Landing Page', () => {
         expect(lastSaved).toBeInTheDocument();
     });
 
-    it.skip('Renders a way to draw the next number. Number is drawn at random from the numbers the user hasn\'t saved yet.', () => {
+    it('Renders a way to draw the next number. Initially the save button is disabled and the number is 0.', () => {
         render(<HomePage user={testUser} />);
+        const nextNumberSection = screen.getByText("Draw next number:");
+        expect(nextNumberSection).toBeInTheDocument();
+        const drawnNumber = screen.getByTestId("drawn-number");
+        expect(drawnNumber).toHaveTextContent("0");
+        expect(drawnNumber).toBeInTheDocument();
+        const drawNumberButton = screen.getByRole('button', { name: "Draw" });
+        const saveNumberButton = screen.getByRole('button', { name: "Save" });
+        expect(drawNumberButton).toBeVisible();
+        expect(saveNumberButton).toBeVisible();
+        expect(saveNumberButton).toBeDisabled();
+    });
+
+    it.skip('The draw button and save button are disabled while drawing a number. A drawing message is displayed.', () => {
+        render(<HomePage user={testUser} />);
+        const drawnNumber = screen.getByTestId("drawn-number");
+        expect(drawnNumber).toHaveTextContent("0");
+        expect(drawnNumber).toBeInTheDocument();
+        const drawNumberButton = screen.getByRole('button', { name: "Draw" });
+        const saveNumberButton = screen.getByRole('button', { name: "Save" });
+        expect(drawnNumber).toBeVisible();
+        fireEvent.click(drawNumberButton);
+    });
+
+    it.skip('Number is drawn at random from the numbers the user hasn\'t saved yet.', () => {
+        render(<HomePage user={testUser} />);
+        const drawnNumber = screen.getByTestId("drawn-number");
+        expect(drawnNumber).toHaveTextContent("0");
+        expect(drawnNumber).toBeInTheDocument();
+        const drawNumberButton = screen.getByRole('button', { name: "Draw" });
+        const saveNumberButton = screen.getByRole('button', { name: "Save" });
+        expect(drawnNumber).toBeVisible();
+        fireEvent.click(drawNumberButton);
     });
 });
