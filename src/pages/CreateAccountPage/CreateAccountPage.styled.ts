@@ -15,3 +15,9 @@ export const CreateAccountForm = styled.form`
     flex-direction: column;
     align-content: space-between;
 `;
+
+export const ProviderLoginButtonContainer = styled(Box)`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
