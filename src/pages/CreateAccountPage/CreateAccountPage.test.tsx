@@ -15,3 +15,7 @@ it.skip('Renders a form to create an account with an email and password, their p
 it.skip('Renders a button to create an account using a Google account..', () => {
     render(<CreateAccountPage />);
 });
+
+it.skip('Renders a message with link to navigate the user to the LoginPage if they need.', () => {
+    render(<CreateAccountPage />);
+})
