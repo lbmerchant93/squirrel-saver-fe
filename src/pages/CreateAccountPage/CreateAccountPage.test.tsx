@@ -11,3 +11,7 @@ it('Renders welcome message to user and describes what the user should do to cre
 it.skip('Renders a form to create an account with an email and password, their preferred name, and button to submit the form.', () => {
     render(<CreateAccountPage />);
 });
+
+it.skip('Renders a button to create an account using a Google account..', () => {
+    render(<CreateAccountPage />);
+});

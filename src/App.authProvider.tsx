@@ -44,6 +44,7 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
                 // setProviderId(providerId);
                 // setRefreshToken(refreshToken);
                 setUserId(user.uid);
+                console.log(user)
             } else {
                 localStorage.setItem('token', '');
                 setUserId(undefined);
