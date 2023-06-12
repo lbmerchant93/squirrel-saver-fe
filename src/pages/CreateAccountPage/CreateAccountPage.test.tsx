@@ -4,8 +4,10 @@ import CreateAccountPage from './CreateAccountPage';
 
 it('Renders welcome message to user and describes what the user should do to create an account.', () => {
     render(<CreateAccountPage />);
-    const linkElement = screen.getByText("CreateAccountPage");
-    expect(linkElement).toBeInTheDocument();
+    const welcomeMessage = screen.getByText("Welcome!");
+    expect(welcomeMessage).toBeInTheDocument();
+    const createAccountDirections = screen.getByText("Please fill out the form below to create your account, or use your Google account to create it.");
+    expect(createAccountDirections).toBeInTheDocument();
 });
 
 it.skip('Renders a form to create an account with an email and password, their preferred name, and button to submit the form.', () => {

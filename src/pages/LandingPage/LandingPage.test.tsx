@@ -64,7 +64,7 @@ describe('Landing Page', () => {
         const createAccountLink = screen.getByRole('link', { name: 'Click here to create an account.' });
         fireEvent.click(createAccountLink);
         await waitFor(() => {
-            expect(screen.getByText("CreateAccountPage")).toBeInTheDocument();
+            expect(screen.getByText("Welcome!")).toBeInTheDocument();
         });
     });
 
