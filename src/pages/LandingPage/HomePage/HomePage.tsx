@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { User } from '../../../shared/auth-context';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -16,6 +16,17 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     // const { user } = props;
     const isMobile = useMediaQuery('(max-width:580px)');
     const isTablet = useMediaQuery('(max-width:630px)');
+    const [nextNumber, setNextNumber] = useState<number>(0);
+    const [isDrawingNumber, setIsDrawingNumber] = useState<boolean>(false);
+
+    const drawNumber = () => {
+        setIsDrawingNumber(true);
+        let index = Math.floor(Math.random() * mockUserData.numbersNotDrawn.length);
+        setTimeout(() => {
+            setNextNumber(prev => mockUserData.numbersNotDrawn[index]);
+            setIsDrawingNumber(false);
+        }, 999);
+    };
 
     const totalSaved = mockUserData.numbersDrawn.reduce((num, acc) => {
         return acc + num
@@ -51,10 +62,10 @@ const HomePage: React.FC<HomePageProps> = (props) => {
                 <Box height="100%">
                     <Box height="100%" width={isTablet ? "100%" : 300} minWidth={300} pt={1} display="flex" flexDirection="column" alignItems="center">
                         <Typography variant="h6" mb={4}>Draw next number:</Typography>
-                        <Typography variant="h6" mb={4}>#</Typography>
+                        <Typography variant="h6" mb={4} data-testid="drawn-number">{isDrawingNumber ? "Drawing..." : nextNumber}</Typography>
                         <Box display="flex" justifyContent="space-evenly" width={250}>
-                            <Button variant="contained" color="inherit">Draw/Again</Button>
-                            <Button variant="contained" color="success">Save</Button>  
+                            <Button variant="contained" color="inherit" onClick={drawNumber} disabled={isDrawingNumber}>{nextNumber ? "Draw Again" : "Draw"}</Button>
+                            <Button variant="contained" color="success" disabled={isDrawingNumber || nextNumber === 0}>Save</Button>  
                         </Box>
                     </Box>
                 </Box>
