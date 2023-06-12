@@ -11,10 +11,12 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../../configs/firebase.configs';
 import { AuthContext } from '../../shared/auth-context';
 import { useNavigate } from 'react-router-dom';
+import { PossibleRoutes } from '../../utils/constants';
 import { 
   CreateAccountPageContainer,
   CreateAccountForm,
-  ProviderLoginButtonContainer
+  ProviderLoginButtonContainer,
+  LoginLink
  } from './CreateAccountPage.styled';
 
 const CreateAccountPage = () => {
@@ -103,6 +105,9 @@ const CreateAccountPage = () => {
           />
         </ProviderLoginButtonContainer>
       </Box>
+      <Typography variant="caption" mt={2}>
+        Already have an account? <LoginLink to={`${PossibleRoutes.LOGIN}`}>Login</LoginLink>
+      </Typography>
     </CreateAccountPageContainer>
   )
 };

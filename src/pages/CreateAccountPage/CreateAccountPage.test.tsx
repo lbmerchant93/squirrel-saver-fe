@@ -38,6 +38,10 @@ it('Renders a button to create an account using a Google account..', () => {
     expect(createAccountWithGoogleButton).toBeInTheDocument()
 });
 
-it.skip('Renders a message with link to navigate the user to the LoginPage if they need.', () => {
+it('Renders a message with link to navigate the user to the LoginPage if they need.', () => {
     render(<BrowserRouter><CreateAccountPage /></BrowserRouter>);
+    const loginMessage = screen.getByText("Already have an account?")
+    expect(loginMessage).toBeInTheDocument();
+    const loginLink = screen.getByRole('link', { name: 'Login' });
+    expect(loginLink).toBeInTheDocument();
 })
