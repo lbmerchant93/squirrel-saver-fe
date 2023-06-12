@@ -25,7 +25,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
         setTimeout(() => {
             setNextNumber(prev => mockUserData.numbersNotDrawn[index]);
             setIsDrawingNumber(false);
-        }, 1500);
+        }, 999);
     };
 
     const totalSaved = mockUserData.numbersDrawn.reduce((num, acc) => {

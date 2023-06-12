@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import HomePage from './HomePage';
 
 describe('Landing Page', () => {
@@ -86,14 +86,21 @@ describe('Landing Page', () => {
         expect(saveNumberButton).toBeDisabled();
     });
 
-    it.skip('Number is drawn at random from the numbers the user hasn\'t saved yet.', () => {
+    it('Number is drawn at random from the numbers the user hasn\'t saved yet. Both draw button and save button are enabled.', async () => {
         render(<HomePage user={testUser} />);
         const drawnNumber = screen.getByTestId("drawn-number");
         expect(drawnNumber).toHaveTextContent("0");
         expect(drawnNumber).toBeInTheDocument();
         const drawNumberButton = screen.getByRole('button', { name: "Draw" });
         const saveNumberButton = screen.getByRole('button', { name: "Save" });
-        expect(drawnNumber).toBeVisible();
         fireEvent.click(drawNumberButton);
+
+        await waitFor(() => {
+            expect(drawNumberButton).toBeEnabled();
+        });
+
+        expect(saveNumberButton).toBeEnabled();
+        expect(drawnNumber).not.toHaveTextContent("0");
+        expect(drawnNumber).not.toHaveTextContent("Drawing...");
     });
 });
