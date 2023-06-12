@@ -98,7 +98,7 @@ describe('Landing Page', () => {
         await waitFor(() => {
             expect(drawNumberButton).toBeEnabled();
         });
-
+        expect(drawNumberButton).toHaveTextContent("Draw Again")
         expect(saveNumberButton).toBeEnabled();
         expect(drawnNumber).not.toHaveTextContent("0");
         expect(drawnNumber).not.toHaveTextContent("Drawing...");
