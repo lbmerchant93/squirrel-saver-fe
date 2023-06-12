@@ -8,3 +8,10 @@ export const CreateAccountPageContainer = styled(Box)`
     align-items: center;
     max-width: min(80ch, 100%);
 `;
+
+export const CreateAccountForm = styled.form`
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+`;

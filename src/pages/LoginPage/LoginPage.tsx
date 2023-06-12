@@ -70,37 +70,37 @@ const LoginPage = () => {
       <Box mt={3} display='flex' flexDirection={isMobile ? 'column' : 'row'}>
         <LoginForm onSubmit={onLoginWithEmailAndPassword}>
           <FormLabel component="legend">Login Form</FormLabel>
-            <Box mt={1}>
-              <TextField 
-                label="Email" 
-                id="Email" 
-                variant="outlined" 
-                value={email} 
-                error={!!error}
-                onChange={(e) => setEmail(e.currentTarget.value)} 
-                fullWidth={true}
-                disabled={isLoading}
-                inputProps={{ "data-testid": "email" }}
-              />
-            </Box>
-            <Box mt={1}>
-              <TextField 
-                label="Password" 
-                id="Password" 
-                variant="outlined" 
-                type="password" 
-                value={password} 
-                error={!!error}
-                helperText={error}
-                onChange={(e) => setPassword(e.currentTarget.value)} 
-                fullWidth={true}
-                disabled={isLoading}
-                inputProps={{ "data-testid": "password" }}
-              />
-            </Box>
-            <Box mt={1}>
-              <LoadingButton type="submit" variant="outlined" color="inherit" loading={isLoading}>Submit</LoadingButton>  
-            </Box>
+          <Box mt={1}>
+            <TextField 
+              label="Email" 
+              id="Email" 
+              variant="outlined" 
+              value={email} 
+              error={!!error}
+              onChange={(e) => setEmail(e.currentTarget.value)} 
+              fullWidth={true}
+              disabled={isLoading}
+              inputProps={{ "data-testid": "email" }}
+            />
+          </Box>
+          <Box mt={1}>
+            <TextField 
+              label="Password" 
+              id="Password" 
+              variant="outlined" 
+              type="password" 
+              value={password} 
+              error={!!error}
+              helperText={error}
+              onChange={(e) => setPassword(e.currentTarget.value)} 
+              fullWidth={true}
+              disabled={isLoading}
+              inputProps={{ "data-testid": "password" }}
+            />
+          </Box>
+          <Box mt={1}>
+            <LoadingButton type="submit" variant="outlined" color="inherit" loading={isLoading}>Submit</LoadingButton>  
+          </Box>
         </LoginForm>
         {isMobile && <Box my={2}><Divider orientation="horizontal"/></Box>}
         {!isMobile && <Box mx={2}><Divider orientation="vertical"/></Box>}
