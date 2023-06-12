@@ -25,6 +25,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
         setTimeout(() => {
             setNextNumber(prev => mockUserData.numbersNotDrawn[index]);
             setIsDrawingNumber(false);
+            // set to 999 so RTL wont time out while testing
         }, 999);
     };
 
