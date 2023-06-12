@@ -72,15 +72,18 @@ describe('Landing Page', () => {
         expect(saveNumberButton).toBeDisabled();
     });
 
-    it.skip('The draw button and save button are disabled while drawing a number. A drawing message is displayed.', () => {
+    it('The draw button and save button are disabled while drawing a number. A drawing message is displayed.', () => {
         render(<HomePage user={testUser} />);
         const drawnNumber = screen.getByTestId("drawn-number");
         expect(drawnNumber).toHaveTextContent("0");
         expect(drawnNumber).toBeInTheDocument();
         const drawNumberButton = screen.getByRole('button', { name: "Draw" });
         const saveNumberButton = screen.getByRole('button', { name: "Save" });
-        expect(drawnNumber).toBeVisible();
+        expect(drawNumberButton).toBeEnabled();
         fireEvent.click(drawNumberButton);
+        expect(drawnNumber).toHaveTextContent("Drawing...");
+        expect(drawNumberButton).toBeDisabled();
+        expect(saveNumberButton).toBeDisabled();
     });
 
     it.skip('Number is drawn at random from the numbers the user hasn\'t saved yet.', () => {
