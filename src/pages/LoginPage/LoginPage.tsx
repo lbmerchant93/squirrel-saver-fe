@@ -12,6 +12,7 @@ import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 
 import { auth } from '../../configs/firebase.configs';
 import { AuthContext } from '../../shared/auth-context';
 import { useNavigate } from 'react-router-dom';
+import GuestLoginButton from '../../components/ProviderLoginButton/GuestLoginButton';
 import {
   LoginPageContainer,
   LoginForm,
@@ -33,6 +34,20 @@ const LoginPage = () => {
     setIsLoading(true);
     try {
       const userLogin = await signInWithEmailAndPassword(auth, email, password);
+      user.setUserId(userLogin.user.uid)
+      setIsLoading(false)
+      navigate(`/`)
+    } catch (err: any) {
+      setError(err.message);
+      setIsLoading(false);
+      console.log(err.message);
+    };
+  };
+
+  const loginAsGuest = async () => {
+    setIsLoading(true);
+    try {
+      const userLogin = await signInWithEmailAndPassword(auth, 'guest@guest.com', 'guest');
       user.setUserId(userLogin.user.uid)
       setIsLoading(false)
       navigate(`/`)
@@ -109,6 +124,11 @@ const LoginPage = () => {
             message={"Sign in with Google"} 
             isLoading={isLoading}
             loginWithGoogle={loginWithGoogle}
+          />
+          <Typography variant="caption" my={3}>OR</Typography>
+          <GuestLoginButton
+            loginAsGuest={loginAsGuest}
+            isLoading={isLoading}
           />
         </ProviderLoginButtonContainer>
       </Box>

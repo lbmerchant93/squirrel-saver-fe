@@ -38,7 +38,7 @@ describe('Login Page', () => {
 
     it('Renders a button to login as a guest user.', () => {
         render(<BrowserRouter><LoginPage /></BrowserRouter>)
-        const loginAsGuestButton = screen.getByRole('button', { name: 'Sign in as Guest' });
+        const loginAsGuestButton = screen.getByRole('button', { name: 'Sign in as guest' });
         expect(loginAsGuestButton).toBeInTheDocument();
     })
 

@@ -19,6 +19,7 @@ export const LoginForm = styled.form`
 
 export const ProviderLoginButtonContainer = styled(Box)`
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 `;
