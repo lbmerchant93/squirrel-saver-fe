@@ -23,7 +23,7 @@ describe('AppFooter', () => {
         const contactDevsLink = screen.getByRole('link', { name: 'Contact Devs' });
         fireEvent.click(contactDevsLink);
         await waitFor(() => {
-            expect(screen.getByText("ContactDevsPage")).toBeInTheDocument();
+            expect(screen.getByText("Our Dev Team")).toBeInTheDocument();
         });
     });
 });
