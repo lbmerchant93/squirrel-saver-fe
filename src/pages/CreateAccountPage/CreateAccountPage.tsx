@@ -7,7 +7,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import ProviderLoginButton from '../../components/ProviderLoginButton/ProviderLoginButton';
 import Divider from '@mui/material/Divider';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../../configs/firebase.configs';
 import { AuthContext } from '../../shared/auth-context';
 import { useNavigate } from 'react-router-dom';
@@ -29,6 +29,21 @@ const CreateAccountPage = () => {
   const user = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const createAccount = async (event: { preventDefault: () => void; }) => {
+    event.preventDefault();
+    setIsLoading(true);
+    try {
+      const createdUser = await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(createdUser.user, {displayName: preferredName});
+      setIsLoading(false);
+      navigate(`/`);
+    } catch (err: any) {
+      setError(err.message);
+      setIsLoading(false);
+      console.log(err.message);
+    }
+  };
+
   const loginWithGoogle = async () => {
     setIsLoading(true)
     try {
@@ -48,7 +63,7 @@ const CreateAccountPage = () => {
       <Typography variant='h2'>Welcome!</Typography>
       <Typography variant='h5'>Please fill out the form below to create your account, or use your Google account to create it.</Typography>
       <Box mt={3} display='flex' flexDirection={isMobile ? 'column' : 'row'}>
-        <CreateAccountForm >
+        <CreateAccountForm onSubmit={createAccount}>
           <FormLabel component="legend">Create Account Form</FormLabel>
           <Box mt={1}>
             <TextField 
@@ -92,7 +107,7 @@ const CreateAccountPage = () => {
             />
           </Box>
           <Box mt={1}>
-            <LoadingButton type="submit" variant="outlined" color="inherit" loading={isLoading}>Submit</LoadingButton>  
+            <LoadingButton type="submit" variant="outlined" color="inherit" loading={isLoading} disabled={!preferredName.length || !email.length || !password.length}>Submit</LoadingButton>  
           </Box>
         </CreateAccountForm>
         {isMobile && <Box my={2}><Divider orientation="horizontal"/></Box>}
