@@ -1,7 +1,8 @@
 export const enum PossibleRoutes {
     ROOT = '/',
     LOGIN = '/login',
-    CREATE_ACCOUNT = '/create-account'
+    CREATE_ACCOUNT = '/create-account',
+    CONTACT_DEVS = '/contact-devs'
 }
 
 export const mockUserData = {
