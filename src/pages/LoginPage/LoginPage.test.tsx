@@ -32,8 +32,14 @@ describe('Login Page', () => {
 
     it('Renders a button to login using a Google account.', () => {
         render(<BrowserRouter><LoginPage /></BrowserRouter>)
-        const loginButtonWithGoogleButton = screen.getByRole('button', { name: 'Sign in with Google' });
-        expect(loginButtonWithGoogleButton).toBeInTheDocument();
+        const loginWithGoogleButton = screen.getByRole('button', { name: 'Sign in with Google' });
+        expect(loginWithGoogleButton).toBeInTheDocument();
+    })
+
+    it('Renders a button to login as a guest user.', () => {
+        render(<BrowserRouter><LoginPage /></BrowserRouter>)
+        const loginAsGuestButton = screen.getByRole('button', { name: 'Sign in as guest' });
+        expect(loginAsGuestButton).toBeInTheDocument();
     })
 
     it.skip('Renders an error message when the user enters an incorrect email or password.', () => {

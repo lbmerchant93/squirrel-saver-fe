@@ -38,6 +38,12 @@ it('Renders a button to create an account using a Google account..', () => {
     expect(createAccountWithGoogleButton).toBeInTheDocument()
 });
 
+it('Renders a button to login as a guest user.', () => {
+    render(<BrowserRouter><CreateAccountPage /></BrowserRouter>)
+    const loginAsGuestButton = screen.getByRole('button', { name: 'Sign in as guest' });
+    expect(loginAsGuestButton).toBeInTheDocument();
+});
+
 it('Renders a message with link to navigate the user to the LoginPage if they need.', () => {
     render(<BrowserRouter><CreateAccountPage /></BrowserRouter>);
     const loginMessage = screen.getByText("Already have an account?")

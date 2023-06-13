@@ -7,11 +7,12 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import ProviderLoginButton from '../../components/ProviderLoginButton/ProviderLoginButton';
 import Divider from '@mui/material/Divider';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../configs/firebase.configs';
 import { AuthContext } from '../../shared/auth-context';
 import { useNavigate } from 'react-router-dom';
 import { PossibleRoutes } from '../../utils/constants';
+import GuestLoginButton from '../../components/ProviderLoginButton/GuestLoginButton';
 import { 
   CreateAccountPageContainer,
   CreateAccountForm,
@@ -56,6 +57,20 @@ const CreateAccountPage = () => {
         setError(err.message);
         console.log('error signing in', err.message);
     }
+  };
+
+  const loginAsGuest = async () => {
+    setIsLoading(true);
+    try {
+      const userLogin = await signInWithEmailAndPassword(auth, 'guest@guest.com', 'guestuser');
+      user.setUserId(userLogin.user.uid)
+      setIsLoading(false)
+      navigate(`/`)
+    } catch (err: any) {
+      setError(err.message);
+      setIsLoading(false);
+      console.log(err.message);
+    };
   };
 
   return (
@@ -117,6 +132,11 @@ const CreateAccountPage = () => {
             message={"Sign in with Google"} 
             isLoading={isLoading}
             loginWithGoogle={loginWithGoogle}
+          />
+          <Typography variant="caption" my={3}>OR</Typography>
+          <GuestLoginButton
+            loginAsGuest={loginAsGuest}
+            isLoading={isLoading}
           />
         </ProviderLoginButtonContainer>
       </Box>
