@@ -6,6 +6,8 @@ import Button from '@mui/material/Button';
 import { mockUserData } from '../../../utils/constants';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Divider from '@mui/material/Divider';
+import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 import { HomePageContainer, DrawnNumbersContainer } from './HomePage.styled';
 
 interface HomePageProps {
@@ -54,9 +56,17 @@ const HomePage: React.FC<HomePageProps> = (props) => {
             <Box mt={5} display="flex" justifyContent="space-evenly" flexDirection={isTablet ? "column" : "row"} width="100%">
                 <Box height={275} width={isTablet ? "100%" : 300} display="flex" flexDirection="column" alignItems="center" pt={1} flexShrink={0}>
                     <Typography variant="h6" mb={1}>Progress towards goal:</Typography>
-                    <Box height={200} width={200} border="1px solid black" borderRadius="50%" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-                        <Typography variant="h6">${totalSaved} of ${savingsSummation}</Typography>
-                        <Typography variant="h6">{percentageCompleted}%</Typography>
+                    <Box height={200} width={200} display="flex" flexDirection="column" justifyContent="center" alignItems="center"> 
+                        <CircularProgressbarWithChildren
+                            value={percentageCompleted}
+                            styles={buildStyles({
+                                pathColor: `#118C4F`,
+                                trailColor: "#eee"
+                            })}
+                        >
+                            <Typography variant="body1"><strong>${totalSaved} of ${savingsSummation}</strong></Typography>
+                            <Typography variant="body1" mt={-0.5}><strong>{percentageCompleted}%</strong></Typography>
+                        </CircularProgressbarWithChildren>
                     </Box>
                 </Box>
                 <Divider orientation={isTablet ? "horizontal" : "vertical"} variant="middle"/>
