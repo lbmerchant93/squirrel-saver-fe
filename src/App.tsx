@@ -6,6 +6,8 @@ import CreateAccountPage from './pages/CreateAccountPage/CreateAccountPage';
 import LandingPage from './pages/LandingPage/LandingPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import AuthProvider from './App.authProvider';
+import ContactDevsPage from './pages/ContactDevsPage/ContactDevsPage';
+import AppFooter from './features/AppFooter/AppFooter';
 
 const App = () => {
 
@@ -14,6 +16,7 @@ const App = () => {
       <Route path={`${PossibleRoutes.ROOT}`} element={<LandingPage />} />
       <Route path={`${PossibleRoutes.CREATE_ACCOUNT}`} element={<CreateAccountPage />} />
       <Route path={`${PossibleRoutes.LOGIN}`} element={<LoginPage />} />
+      <Route path={`${PossibleRoutes.CONTACT_DEVS}`} element={<ContactDevsPage />} />
     </Routes>
   );
 
@@ -24,6 +27,7 @@ const App = () => {
         <main>
           {routes}
         </main>
+        <AppFooter />
       </Router>
     </AuthProvider>
   );
