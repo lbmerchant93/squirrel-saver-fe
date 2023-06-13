@@ -40,7 +40,7 @@ it('Renders a button to create an account using a Google account..', () => {
 
 it('Renders a button to login as a guest user.', () => {
     render(<BrowserRouter><CreateAccountPage /></BrowserRouter>)
-    const loginAsGuestButton = screen.getByRole('button', { name: 'Sign in as Guest' });
+    const loginAsGuestButton = screen.getByRole('button', { name: 'Sign in as guest' });
     expect(loginAsGuestButton).toBeInTheDocument();
 });
 

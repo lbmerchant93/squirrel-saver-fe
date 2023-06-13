@@ -47,7 +47,7 @@ const LoginPage = () => {
   const loginAsGuest = async () => {
     setIsLoading(true);
     try {
-      const userLogin = await signInWithEmailAndPassword(auth, 'guest@guest.com', 'guest');
+      const userLogin = await signInWithEmailAndPassword(auth, 'guest@guest.com', 'guestuser');
       user.setUserId(userLogin.user.uid)
       setIsLoading(false)
       navigate(`/`)
@@ -114,7 +114,7 @@ const LoginPage = () => {
             />
           </Box>
           <Box mt={1}>
-            <LoadingButton type="submit" variant="outlined" color="inherit" loading={isLoading}>Submit</LoadingButton>  
+            <LoadingButton type="submit" variant="outlined" color="inherit" loading={isLoading} disabled={!email.length || !password.length}>Submit</LoadingButton>  
           </Box>
         </LoginForm>
         {isMobile && <Box my={2}><Divider orientation="horizontal"/></Box>}
