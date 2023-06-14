@@ -8,11 +8,13 @@ import { Footer, FooterLink } from './AppFooter.styled';
 const AppFooter = () => {
   return (
     <Footer>
-       <Box display="flex" flexDirection="column" py={3} pl={2}>
+       <Box maxWidth="1232px" width={"100%"} display="flex">
+          <Box display="flex" flexDirection="column" alignItems="flex-start" py={3} px={2}>
             <Typography variant="body1" color="primary.light">Support</Typography>
             <Link to={`${PossibleRoutes.CONTACT_DEVS}`}>
                 <FooterLink variant="body1">Contact Devs</FooterLink>
             </Link>
+          </Box>
         </Box> 
     </Footer>
   );

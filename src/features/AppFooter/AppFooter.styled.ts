@@ -6,8 +6,7 @@ export const Footer = styled.footer`
     min-height: 5em;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
+    align-items: center;
 `;
 
 export const FooterLink = styled(Typography)`
