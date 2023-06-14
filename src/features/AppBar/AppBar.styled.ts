@@ -19,9 +19,10 @@ export const ToolBarContainer = styled(Box)`
 `
 
 export const TitleLink = styled(Link)`
+    display: flex;
+    align-items: center;
     text-decoration: none;
     color: black;
-    padding: 3px;
     :hover {
         border-radius: 5px;
         background-color: #e0e0e0;
@@ -30,4 +31,6 @@ export const TitleLink = styled(Link)`
 
 export const TitleText = styled(Typography)`
     font-size: 2rem !important;
+    width: 125px;
+    text-align: center;
 `
