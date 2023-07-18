@@ -8,6 +8,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Divider from '@mui/material/Divider';
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { useUpdatePeriod } from '../../../api/period/period';
 import { HomePageContainer, DrawnNumbersContainer } from './HomePage.styled';
 
 interface HomePageProps {
@@ -20,6 +21,8 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     const isTablet = useMediaQuery('(max-width:630px)');
     const [nextNumber, setNextNumber] = useState<number>(0);
     const [isDrawingNumber, setIsDrawingNumber] = useState<boolean>(false);
+    const updatePeriod = useUpdatePeriod();
+    console.log(user.numbersNotDrawn)
 
     const drawNumber = () => {
         setIsDrawingNumber(true);
@@ -49,6 +52,27 @@ const HomePage: React.FC<HomePageProps> = (props) => {
 
     // Use .slice to make a copy of the original array because .sort mutates the original
     const numbersDrawnInAscendingOrder = user.numbersDrawn.slice().sort((a, b) => a - b).join(", ");
+
+    const handleUpdatePeriod = () => {
+        setIsDrawingNumber(true);
+        const updateInput = {
+            id: 1,
+            numberDrawn: nextNumber,
+            numbersNotDrawn: user.numbersNotDrawn
+        }
+
+        updatePeriod.mutate(updateInput, {
+            onError: (err: any) => {
+                console.log(err);
+            },
+            onSuccess: () => {
+                console.log("yay!");
+            },
+            onSettled: () => {
+                setIsDrawingNumber(false);
+            }
+        });
+    };
     
     return (
         <HomePageContainer>
@@ -76,7 +100,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
                         <Typography variant="h6" mb={4} data-testid="drawn-number">{isDrawingNumber ? "Drawing..." : nextNumber}</Typography>
                         <Box display="flex" justifyContent="space-evenly" width={250}>
                             <Button variant="contained" color="inherit" onClick={drawNumber} disabled={isDrawingNumber}>{nextNumber ? "Draw Again" : "Draw"}</Button>
-                            <Button variant="contained" color="success" disabled={isDrawingNumber || nextNumber === 0}>Save</Button>  
+                            <Button variant="contained" color="success" onClick={handleUpdatePeriod} disabled={isDrawingNumber || nextNumber === 0}>Save</Button>  
                         </Box>
                     </Box>
                 </Box>

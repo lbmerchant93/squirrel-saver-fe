@@ -9,6 +9,7 @@ const userDocument = gql`
             email
             displayName
             periods {
+                id
                 numbersDrawn
                 numbersNotDrawn
                 savingsRange
