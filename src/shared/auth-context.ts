@@ -5,10 +5,10 @@ export interface User {
     email: string | null;
     id: string | undefined;
     isLoggedIn: boolean;
-    totalSavings: number | undefined;
-    savingsRange: number[] | null;
-    numbersDrawn: number[] | null;
-    numbersNotDrawn: number[] | null;
+    totalSavings: number;
+    savingsRange: number[];
+    numbersDrawn: number[];
+    numbersNotDrawn: number[];
     setDisplayName: Dispatch<SetStateAction<string | null | undefined>>;
     setUserId: Dispatch<SetStateAction<string | undefined>>;
 }
@@ -18,7 +18,7 @@ export const AuthContext = createContext<User>({
     email: '',
     id: undefined,
     isLoggedIn: false, 
-    totalSavings: undefined,
+    totalSavings: 0,
     savingsRange: [],
     numbersDrawn: [],
     numbersNotDrawn: [],

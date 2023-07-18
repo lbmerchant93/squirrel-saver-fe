@@ -37,7 +37,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <Router>
-          <ReactQueryDevtools initialIsOpen={false} />
+          <ReactQueryDevtools initialIsOpen={true} />
           <AppBar/>
           <main>
             {routes}

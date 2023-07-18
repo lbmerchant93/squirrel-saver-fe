@@ -3,7 +3,7 @@ import { User } from '../../../shared/auth-context';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { mockUserData } from '../../../utils/constants';
+// import { mockUserData } from '../../../utils/constants';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Divider from '@mui/material/Divider';
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
@@ -15,7 +15,7 @@ interface HomePageProps {
 }
 
 const HomePage: React.FC<HomePageProps> = (props) => {
-    // const { user } = props;
+    const { user } = props;
     const isMobile = useMediaQuery('(max-width:580px)');
     const isTablet = useMediaQuery('(max-width:630px)');
     const [nextNumber, setNextNumber] = useState<number>(0);
@@ -23,15 +23,15 @@ const HomePage: React.FC<HomePageProps> = (props) => {
 
     const drawNumber = () => {
         setIsDrawingNumber(true);
-        let index = Math.floor(Math.random() * mockUserData.numbersNotDrawn.length);
+        let index = Math.floor(Math.random() * user.numbersNotDrawn.length);
         setTimeout(() => {
-            setNextNumber(prev => mockUserData.numbersNotDrawn[index]);
+            setNextNumber(prev => user.numbersNotDrawn[index]);
             setIsDrawingNumber(false);
             // set to 999 so RTL wont time out while testing
         }, 999);
     };
 
-    const totalSaved = mockUserData.numbersDrawn.reduce((num, acc) => {
+    const totalSaved = user.numbersDrawn.reduce((num, acc) => {
         return acc + num
     }, 0);
 
@@ -43,12 +43,12 @@ const HomePage: React.FC<HomePageProps> = (props) => {
         return sum;
     };
 
-    const savingsSummation = summation(mockUserData.savingsRange[1]);
+    const savingsSummation = summation(user.savingsRange[1]);
 
     const percentageCompleted = Math.round((totalSaved/savingsSummation) * 100);
 
     // Use .slice to make a copy of the original array because .sort mutates the original
-    const numbersDrawnInAscendingOrder = mockUserData.numbersDrawn.slice().sort((a, b) => a - b).join(", ");
+    const numbersDrawnInAscendingOrder = user.numbersDrawn.slice().sort((a, b) => a - b).join(", ");
     
     return (
         <HomePageContainer>
@@ -86,13 +86,13 @@ const HomePage: React.FC<HomePageProps> = (props) => {
                     <Box display="flex" justifyContent="center" flexDirection="column" borderRight={isMobile ? "none" : "1px solid black"} borderBottom={isMobile ? "1px solid black" : "none"} width={isMobile ? "auto" : "100%"} py={1} px={2}>
                         <Box minWidth={150}>
                             <Typography variant="h6">Last saved:</Typography>
-                            <Typography variant="h6">{mockUserData.numbersDrawn[mockUserData.numbersDrawn.length - 1]}</Typography>
+                            <Typography variant="h6">{user.numbersDrawn[user.numbersDrawn.length - 1]}</Typography>
                         </Box>
                     </Box>
                     <Box display="flex" justifyContent="center" flexDirection="column" borderRight={isMobile ? "none" : "1px solid black"} borderBottom={isMobile ? "1px solid black" : "none"} width={isMobile ? "auto" : "100%"} py={1} px={2}>
                         <Box minWidth={150}>
                             <Typography variant="h6">Times drawn:</Typography>
-                            <Typography variant="h6">{mockUserData.numbersDrawn.length}</Typography>
+                            <Typography variant="h6">{user.numbersDrawn.length}</Typography>
                         </Box>
                     </Box>
                     <Box display="flex" justifyContent="center" flexDirection="column" width={isMobile ? "auto" : "100%"} py={1} px={2}>
@@ -106,7 +106,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
                     <Box display="flex" justifyContent="center" borderRight={isMobile ? "none" : "1px solid black"} borderBottom={isMobile ? "1px solid black" : "none"} py={1} px={2}>
                         <DrawnNumbersContainer>
                             <Typography variant="h6">Drawn order:</Typography>
-                            <Typography variant="h6">{mockUserData.numbersDrawn.join(", ")}</Typography>
+                            <Typography variant="h6">{user.numbersDrawn.join(", ")}</Typography>
                         </DrawnNumbersContainer>
                     </Box>
                     <Box display="flex" justifyContent="center" py={1} px={2}>
