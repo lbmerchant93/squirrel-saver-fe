@@ -20,12 +20,12 @@ const userDocument = gql`
 
 export const useUser = (id: string | undefined, email: string | null) => {
     return useQuery(['user', email], async () => {
-        const data = await request({
+        const data : any = await request({
             url: endpoint,
             document: userDocument,
             variables: { id }
         });
-        return data;
+        return data
     }, {
         enabled: id !== undefined && id !== null && id !== '' && email !== '' && email !== null
     });

@@ -29,7 +29,6 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
     const [numbersDrawn, setNumbersDrawn] = useState<number[] | null>([]);
     const [numbersNotDrawn, setNumbersNotDrawn] = useState<number[] | null>([]);
     const { data } = useUser(userId, email);
-    console.log(data)
 
     useEffect(() => {
         const listen = onAuthStateChanged(auth, async (user) => {
@@ -42,10 +41,10 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
                     const newToken = await getAuth().currentUser?.getIdToken();
                     localStorage.setItem('token', newToken ?? '');
                 }
-                setEmail(user.email);
-                setIsLoggedIn(true);
                 // setProviderId(providerId);
                 // setRefreshToken(refreshToken);
+                setDisplayName(user.displayName);
+                setEmail(user.email);
                 setUserId(user.uid);
             } else {
                 localStorage.setItem('token', '');
@@ -61,6 +60,19 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
             listen();
         };
     }, []);
+
+    useEffect(() => {
+        if (data && data.user.id === userId) {
+            const { user } = data;
+            const { periods } = user;
+            
+            setNumbersDrawn(periods[periods.length - 1].numbersDrawn);
+            setNumbersNotDrawn(periods[periods.length - 1].numbersNotDrawn);
+            setSavingsRange(periods[periods.length - 1].savingsRange);
+            setTotalSavings(periods[periods.length - 1].totalSavings);
+            setIsLoggedIn(true);
+        };
+    }, [data, userId]);
 
     return (
         <AuthContext.Provider 
