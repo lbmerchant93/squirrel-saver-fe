@@ -7,6 +7,7 @@ import {
     browserLocalPersistence, 
     onAuthStateChanged
 } from 'firebase/auth';
+import { useUser } from './api/user/user';
 
 export const getAuthToken = () => localStorage.getItem('token');
 
@@ -27,6 +28,8 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
     const [savingsRange, setSavingsRange] = useState<number[] | null>([]);
     const [numbersDrawn, setNumbersDrawn] = useState<number[] | null>([]);
     const [numbersNotDrawn, setNumbersNotDrawn] = useState<number[] | null>([]);
+    const { data } = useUser(userId, email);
+    console.log(data)
 
     useEffect(() => {
         const listen = onAuthStateChanged(auth, async (user) => {
