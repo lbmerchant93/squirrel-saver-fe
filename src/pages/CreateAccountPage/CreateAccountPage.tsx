@@ -13,6 +13,7 @@ import { AuthContext } from '../../shared/auth-context';
 import { useNavigate } from 'react-router-dom';
 import { PossibleRoutes } from '../../utils/constants';
 import GuestLoginButton from '../../components/ProviderLoginButton/GuestLoginButton';
+import { useLoginUser } from '../../api/user/user';
 import { 
   CreateAccountPageContainer,
   CreateAccountForm,
@@ -29,6 +30,7 @@ const CreateAccountPage = () => {
   const isMobile = useMediaQuery('(max-width: 620px)');
   const user = useContext(AuthContext);
   const navigate = useNavigate();
+  const loginUser = useLoginUser();
 
   const createAccount = async (event: { preventDefault: () => void; }) => {
     event.preventDefault();
@@ -36,8 +38,18 @@ const CreateAccountPage = () => {
     try {
       const createdUser = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(createdUser.user, {displayName: preferredName});
-      setIsLoading(false);
-      navigate(`/`);
+      loginUser.mutate({ id: createdUser.user.uid, email: createdUser.user.email, displayName: createdUser.user.displayName }, {
+        onError: (err: any) => {
+            setError(err.response.errors[0].message || 'Something went wrong, please try again or contact us for help.')
+            setIsLoading(false)
+            console.log(err)
+        },
+        onSuccess: (data) => {
+            user.setUserId(createdUser.user.uid)
+            setIsLoading(false)
+            navigate(`/`)
+        }
+      })
     } catch (err: any) {
       setError(err.message);
       setIsLoading(false);
@@ -49,9 +61,18 @@ const CreateAccountPage = () => {
     setIsLoading(true)
     try {
         const userLogin = await signInWithPopup(auth, new GoogleAuthProvider());
-        user.setUserId(userLogin.user.uid)
-        setIsLoading(false)
-        navigate(`/`)
+        loginUser.mutate({ id: userLogin.user.uid, email: userLogin.user.email, displayName: userLogin.user.displayName }, {
+          onError: (err: any) => {
+              setError(err.response.errors[0].message || 'Something went wrong, please try again or contact us for help.')
+              setIsLoading(false)
+              console.log(err)
+          },
+          onSuccess: (data) => {
+              user.setUserId(userLogin.user.uid)
+              setIsLoading(false)
+              navigate(`/`)
+          }
+        })
     } catch (err: any) {
         setIsLoading(false)
         setError(err.message);
@@ -63,9 +84,18 @@ const CreateAccountPage = () => {
     setIsLoading(true);
     try {
       const userLogin = await signInWithEmailAndPassword(auth, 'guest@guest.com', 'guestuser');
-      user.setUserId(userLogin.user.uid)
-      setIsLoading(false)
-      navigate(`/`)
+      loginUser.mutate({ id: userLogin.user.uid, email: userLogin.user.email, displayName: userLogin.user.displayName }, {
+        onError: (err: any) => {
+            setError(err.response.errors[0].message || 'Something went wrong, please try again or contact us for help.')
+            setIsLoading(false)
+            console.log(err)
+        },
+        onSuccess: (data) => {
+            user.setUserId(userLogin.user.uid)
+            setIsLoading(false)
+            navigate(`/`)
+        }
+      })
     } catch (err: any) {
       setError(err.message);
       setIsLoading(false);
