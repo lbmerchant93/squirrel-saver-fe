@@ -10,6 +10,7 @@ import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-pro
 import 'react-circular-progressbar/dist/styles.css';
 import { useUpdatePeriod } from '../../../api/period/period';
 import { HomePageContainer, DrawnNumbersContainer } from './HomePage.styled';
+import { useUser } from '../../../api/user/user';
 
 interface HomePageProps {
     user: User;
@@ -23,6 +24,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     const [isDrawingNumber, setIsDrawingNumber] = useState<boolean>(false);
     const [isSavedNumber, setIsSavedNumber] = useState<boolean>(false);
     const updatePeriod = useUpdatePeriod();
+    const { data, refetch } = useUser(user.id, user.email);
 
     const drawNumber = () => {
         setIsDrawingNumber(true);
@@ -70,6 +72,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
                 // working here, update page when saved
                 setIsSavedNumber(true);
                 console.log("yay!");
+                refetch();
             },
             onSettled: () => {
                 setIsDrawingNumber(false);
