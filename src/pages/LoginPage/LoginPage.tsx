@@ -59,9 +59,18 @@ const LoginPage = () => {
     setIsLoading(true);
     try {
       const userLogin = await signInWithEmailAndPassword(auth, 'guest@guest.com', 'guestuser');
-      user.setUserId(userLogin.user.uid)
-      setIsLoading(false)
-      navigate(`/`)
+      loginUser.mutate({ id: userLogin.user.uid, email: userLogin.user.email, displayName: userLogin.user.displayName }, {
+        onError: (err: any) => {
+            setError(err.response.errors[0].message || 'Something went wrong, please try again or contact us for help.')
+            setIsLoading(false)
+            console.log(err)
+        },
+        onSuccess: (data) => {
+            user.setUserId(userLogin.user.uid)
+            setIsLoading(false)
+            navigate(`/`)
+        }
+      })
     } catch (err: any) {
       setError(err.message);
       setIsLoading(false);
