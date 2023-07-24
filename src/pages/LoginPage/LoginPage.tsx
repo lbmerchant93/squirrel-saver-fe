@@ -82,9 +82,18 @@ const LoginPage = () => {
     setIsLoading(true)
     try {
         const userLogin = await signInWithPopup(auth, new GoogleAuthProvider());
-        user.setUserId(userLogin.user.uid)
-        setIsLoading(false)
-        navigate(`/`)
+        loginUser.mutate({ id: userLogin.user.uid, email: userLogin.user.email, displayName: userLogin.user.displayName }, {
+          onError: (err: any) => {
+              setError(err.response.errors[0].message || 'Something went wrong, please try again or contact us for help.')
+              setIsLoading(false)
+              console.log(err)
+          },
+          onSuccess: (data) => {
+              user.setUserId(userLogin.user.uid)
+              setIsLoading(false)
+              navigate(`/`)
+          }
+        })
     } catch (err: any) {
         setIsLoading(false)
         setError(err.message);

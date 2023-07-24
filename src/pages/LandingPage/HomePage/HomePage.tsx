@@ -69,7 +69,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
                 console.log(err);
             },
             onSuccess: () => {
-                // working here, update page when saved
+                // working here, update page when saved, create are you sure modal to open before saving, set all areas to loading after
                 setIsSavedNumber(true);
                 console.log("yay!");
                 refetch();
@@ -133,13 +133,13 @@ const HomePage: React.FC<HomePageProps> = (props) => {
                     </Box>
                 </Box>
                 <Box display="flex" flexDirection={isMobile ? "column" : "row"}>
-                    <Box display="flex" justifyContent="center" borderRight={isMobile ? "none" : "1px solid black"} borderBottom={isMobile ? "1px solid black" : "none"} py={1} px={2}>
+                    <Box display="flex" justifyContent="center" borderRight={isMobile ? "none" : "1px solid black"} borderBottom={isMobile ? "1px solid black" : "none"} py={1} px={2} width={isMobile ? "auto" : "50%"}>
                         <DrawnNumbersContainer>
                             <Typography variant="h6">Drawn order:</Typography>
                             <Typography variant="h6">{user.numbersDrawn.join(", ")}</Typography>
                         </DrawnNumbersContainer>
                     </Box>
-                    <Box display="flex" justifyContent="center" py={1} px={2}>
+                    <Box display="flex" justifyContent="center" py={1} px={2} width={isMobile ? "auto" : "50%"}>
                         <DrawnNumbersContainer>
                             <Typography variant="h6">Ascending order:</Typography>
                             <Typography variant="h6">{numbersDrawnInAscendingOrder}</Typography>
