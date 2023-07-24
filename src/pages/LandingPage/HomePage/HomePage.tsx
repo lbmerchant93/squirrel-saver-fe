@@ -57,7 +57,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     const handleUpdatePeriod = () => {
         setIsDrawingNumber(true);
         const updateInput = {
-            id: 1,
+            id: user.periodId,
             numberDrawn: nextNumber,
             numbersNotDrawn: user.numbersNotDrawn
         }

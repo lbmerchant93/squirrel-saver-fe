@@ -79,7 +79,7 @@ export const useLoginUser = () => {
 
     return useMutation(loginUserMutation, {
         onSuccess: async () => {
-          await queryClient.invalidateQueries({ queryKey: ["user"] })
+          await queryClient.invalidateQueries({ queryKey: ["user"], refetchInactive: false  })
         }
     });
 };

@@ -9,6 +9,7 @@ export interface User {
     savingsRange: number[];
     numbersDrawn: number[];
     numbersNotDrawn: number[];
+    periodId: number | null;
     setDisplayName: Dispatch<SetStateAction<string | null | undefined>>;
     setUserId: Dispatch<SetStateAction<string | undefined>>;
 }
@@ -22,6 +23,7 @@ export const AuthContext = createContext<User>({
     savingsRange: [],
     numbersDrawn: [],
     numbersNotDrawn: [],
+    periodId: null,
     setDisplayName: () => {},
     setUserId: () => {},
 })

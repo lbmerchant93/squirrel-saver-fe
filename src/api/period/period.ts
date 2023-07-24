@@ -3,7 +3,7 @@ import { request, gql } from "graphql-request";
 import { endpoint } from '../../App';
 
 interface PeriodUpdateInputData {
-    id: number;
+    id: number | null;
     numberDrawn: number;
     numbersNotDrawn: number[];
 };

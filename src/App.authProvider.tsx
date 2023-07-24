@@ -28,6 +28,7 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
     const [savingsRange, setSavingsRange] = useState<number[]>([]);
     const [numbersDrawn, setNumbersDrawn] = useState<number[]>([]);
     const [numbersNotDrawn, setNumbersNotDrawn] = useState<number[]>([]);
+    const [periodId, setPeriodId] = useState<number | null>(null);
     const { data } = useUser(userId, email);
 
     useEffect(() => {
@@ -62,10 +63,11 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
     }, []);
 
     useEffect(() => {
-        if (data && data.user.id === userId) {
+        if (data && data.user !== null && data.user.id === userId) {
             const { user } = data;
             const { periods } = user;
 
+            setPeriodId(periods[periods.length - 1].id);
             setNumbersDrawn(periods[periods.length - 1].numbersDrawn);
             setNumbersNotDrawn(periods[periods.length - 1].numbersNotDrawn);
             setSavingsRange(periods[periods.length - 1].savingsRange);
@@ -85,6 +87,7 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
             savingsRange: savingsRange,
             numbersDrawn: numbersDrawn,
             numbersNotDrawn: numbersNotDrawn,
+            periodId: periodId,
             setUserId: setUserId,
             setDisplayName: setDisplayName,
             }}
