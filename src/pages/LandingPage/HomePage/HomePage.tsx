@@ -21,8 +21,8 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     const isTablet = useMediaQuery('(max-width:630px)');
     const [nextNumber, setNextNumber] = useState<number>(0);
     const [isDrawingNumber, setIsDrawingNumber] = useState<boolean>(false);
+    const [isSavedNumber, setIsSavedNumber] = useState<boolean>(false);
     const updatePeriod = useUpdatePeriod();
-    console.log(user.numbersNotDrawn)
 
     const drawNumber = () => {
         setIsDrawingNumber(true);
@@ -30,6 +30,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
         setTimeout(() => {
             setNextNumber(prev => user.numbersNotDrawn[index]);
             setIsDrawingNumber(false);
+            setIsSavedNumber(false);
             // set to 999 so RTL wont time out while testing
         }, 999);
     };
@@ -66,6 +67,8 @@ const HomePage: React.FC<HomePageProps> = (props) => {
                 console.log(err);
             },
             onSuccess: () => {
+                // working here, update page when saved
+                setIsSavedNumber(true);
                 console.log("yay!");
             },
             onSettled: () => {
@@ -100,7 +103,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
                         <Typography variant="h6" mb={4} data-testid="drawn-number">{isDrawingNumber ? "Drawing..." : nextNumber}</Typography>
                         <Box display="flex" justifyContent="space-evenly" width={250}>
                             <Button variant="contained" color="inherit" onClick={drawNumber} disabled={isDrawingNumber}>{nextNumber ? "Draw Again" : "Draw"}</Button>
-                            <Button variant="contained" color="success" onClick={handleUpdatePeriod} disabled={isDrawingNumber || nextNumber === 0}>Save</Button>  
+                            <Button variant="contained" color="success" onClick={handleUpdatePeriod} disabled={isDrawingNumber || nextNumber === 0 || isSavedNumber}>Save</Button>  
                         </Box>
                     </Box>
                 </Box>
