@@ -8,6 +8,19 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import AuthProvider from './App.authProvider';
 import ContactDevsPage from './pages/ContactDevsPage/ContactDevsPage';
 import AppFooter from './features/AppFooter/AppFooter';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+
+export const endpoint: string = process.env.REACT_APP_GQL_ENDPOINT_DEVELOPMENT as string;
+
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false
+    },
+  },
+});
 
 const App = () => {
 
@@ -21,16 +34,19 @@ const App = () => {
   );
 
   return (
-    <AuthProvider>
-      <Router>
-        <AppBar/>
-        <main>
-          {routes}
-        </main>
-        <AppFooter />
-      </Router>
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <Router>
+          <ReactQueryDevtools initialIsOpen={true} />
+          <AppBar/>
+          <main>
+            {routes}
+          </main>
+          <AppFooter />
+        </Router>
+      </AuthProvider>
+    </QueryClientProvider>
   );
-}
+};
 
 export default App;

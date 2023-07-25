@@ -7,6 +7,7 @@ import {
     browserLocalPersistence, 
     onAuthStateChanged
 } from 'firebase/auth';
+import { useUser } from './api/user/user';
 
 export const getAuthToken = () => localStorage.getItem('token');
 
@@ -23,10 +24,12 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
     // const [providerId, setProviderId] = useState<string | null>('');
     // const [refreshToken, setRefreshToken] = useState<string | null>('');
     const [userId, setUserId] = useState<string | undefined>(undefined);
-    const [totalSavings, setTotalSavings] = useState<number | undefined>(undefined);
-    const [savingsRange, setSavingsRange] = useState<number[] | null>([]);
-    const [numbersDrawn, setNumbersDrawn] = useState<number[] | null>([]);
-    const [numbersNotDrawn, setNumbersNotDrawn] = useState<number[] | null>([]);
+    const [totalSavings, setTotalSavings] = useState<number>(0);
+    const [savingsRange, setSavingsRange] = useState<number[]>([]);
+    const [numbersDrawn, setNumbersDrawn] = useState<number[]>([]);
+    const [numbersNotDrawn, setNumbersNotDrawn] = useState<number[]>([]);
+    const [periodId, setPeriodId] = useState<number | null>(null);
+    const { data } = useUser(userId, email);
 
     useEffect(() => {
         const listen = onAuthStateChanged(auth, async (user) => {
@@ -39,10 +42,10 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
                     const newToken = await getAuth().currentUser?.getIdToken();
                     localStorage.setItem('token', newToken ?? '');
                 }
-                setEmail(user.email);
-                setIsLoggedIn(true);
                 // setProviderId(providerId);
                 // setRefreshToken(refreshToken);
+                setDisplayName(user.displayName);
+                setEmail(user.email);
                 setUserId(user.uid);
             } else {
                 localStorage.setItem('token', '');
@@ -59,6 +62,20 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
         };
     }, []);
 
+    useEffect(() => {
+        if (data && data.user !== null && data.user.id === userId) {
+            const { user } = data;
+            const { periods } = user;
+
+            setPeriodId(periods[periods.length - 1].id);
+            setNumbersDrawn(periods[periods.length - 1].numbersDrawn);
+            setNumbersNotDrawn(periods[periods.length - 1].numbersNotDrawn);
+            setSavingsRange(periods[periods.length - 1].savingsRange);
+            setTotalSavings(periods[periods.length - 1].totalSavings);
+            setIsLoggedIn(true);
+        };
+    }, [data, userId]);
+
     return (
         <AuthContext.Provider 
             value={{
@@ -70,6 +87,7 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
             savingsRange: savingsRange,
             numbersDrawn: numbersDrawn,
             numbersNotDrawn: numbersNotDrawn,
+            periodId: periodId,
             setUserId: setUserId,
             setDisplayName: setDisplayName,
             }}
