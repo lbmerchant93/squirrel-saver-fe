@@ -8,7 +8,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Divider from '@mui/material/Divider';
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { useUpdatePeriod } from '../../../api/period/period';
 import { HomePageContainer, DrawnNumbersContainer } from './HomePage.styled';
 import { useUser } from '../../../api/user/user';
 import SaveNumberModal from '../../../components/SaveNumberModal';
@@ -25,7 +24,6 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     const [isDrawingNumber, setIsDrawingNumber] = useState<boolean>(false);
     const [isSavedNumber, setIsSavedNumber] = useState<boolean>(false);
     const [isSaveNumberModalOpen, setIsSaveNumberModalOpen] = useState<boolean>(false);
-    const updatePeriod = useUpdatePeriod();
     const { data, refetch } = useUser(user.id, user.email);
 
     const drawNumber = () => {
@@ -58,30 +56,8 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     // Use .slice to make a copy of the original array because .sort mutates the original
     const numbersDrawnInAscendingOrder = user.numbersDrawn.slice().sort((a, b) => a - b).join(", ");
 
-    const handleUpdatePeriod = () => {
-        setIsDrawingNumber(true);
-        const updateInput = {
-            id: user.periodId,
-            numberDrawn: nextNumber,
-            numbersNotDrawn: user.numbersNotDrawn
-        }
-
-        updatePeriod.mutate(updateInput, {
-            onError: (err: any) => {
-                console.log(err);
-            },
-            onSuccess: () => {
-                // working here, set all areas to loading after
-                setIsSavedNumber(true);
-                refetch();
-            },
-            onSettled: () => {
-                setIsDrawingNumber(false);
-            }
-        });
-    };
-
     const closeUpdateModal = () => {
+        setIsDrawingNumber(false);
         setIsSaveNumberModalOpen(false);
     };
     
@@ -157,6 +133,11 @@ const HomePage: React.FC<HomePageProps> = (props) => {
             <SaveNumberModal 
                 isOpen={isSaveNumberModalOpen}
                 onClose={closeUpdateModal}
+                periodId={user.periodId}
+                nextNumber={nextNumber}
+                numbersNotDrawn={user.numbersNotDrawn}
+                setIsSavedNumber={setIsSavedNumber}
+                refetch={refetch}
             />
         </>
         

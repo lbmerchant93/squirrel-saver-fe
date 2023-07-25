@@ -1,20 +1,50 @@
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { useUpdatePeriod } from '../api/period/period';
 
 interface SaveNumberModalProps {
     isOpen: boolean;
     onClose: () => void;
+    periodId: number | null;
+    nextNumber: number;
+    numbersNotDrawn: number[];
+    setIsSavedNumber: Dispatch<SetStateAction<boolean>>;
+    refetch: () => {};
 }
 
 const SaveNumberModal: React.FC<SaveNumberModalProps> = (props) => {
-    const { isOpen, onClose } = props;
+    const { isOpen, onClose, periodId, nextNumber, numbersNotDrawn, setIsSavedNumber, refetch } = props;
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const updatePeriod = useUpdatePeriod();
+
+    const handleUpdatePeriod = () => {
+        setIsLoading(true);
+        const updateInput = {
+            id: periodId,
+            numberDrawn: nextNumber,
+            numbersNotDrawn: numbersNotDrawn
+        }
+
+        updatePeriod.mutate(updateInput, {
+            onError: (err: any) => {
+                console.log(err);
+            },
+            onSuccess: () => {
+                setIsSavedNumber(true);
+                refetch();
+            },
+            onSettled: () => {
+                setIsLoading(false);
+                onClose();
+            }
+        });
+    };
 
     return (
         <Modal
@@ -33,7 +63,7 @@ const SaveNumberModal: React.FC<SaveNumberModalProps> = (props) => {
                 <Typography variant={'h4'}>Are you sure you want to save this number?</Typography>
                 <Box mt={1} width={200} display="flex" justifyContent="space-between">
                     <LoadingButton
-                        onClick={() => console.log('yes')} 
+                        onClick={handleUpdatePeriod} 
                         variant='contained' 
                         color='success'
                         loading={isLoading}
@@ -43,6 +73,7 @@ const SaveNumberModal: React.FC<SaveNumberModalProps> = (props) => {
                     <LoadingButton
                         onClick={onClose} 
                         variant='contained' 
+                        color="inherit"
                         loading={isLoading}
                     >
                             Cancel
