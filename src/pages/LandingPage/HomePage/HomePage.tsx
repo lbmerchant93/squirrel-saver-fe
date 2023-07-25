@@ -11,6 +11,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import { HomePageContainer, DrawnNumbersContainer } from './HomePage.styled';
 import { useUser } from '../../../api/user/user';
 import SaveNumberModal from '../../../components/SaveNumberModal';
+import Skeleton from '@mui/material/Skeleton';
 
 interface HomePageProps {
     user: User;
@@ -24,7 +25,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     const [isDrawingNumber, setIsDrawingNumber] = useState<boolean>(false);
     const [isSavedNumber, setIsSavedNumber] = useState<boolean>(false);
     const [isSaveNumberModalOpen, setIsSaveNumberModalOpen] = useState<boolean>(false);
-    const { data, refetch } = useUser(user.id, user.email);
+    const { isFetching, refetch } = useUser(user.id, user.email);
 
     const drawNumber = () => {
         setIsDrawingNumber(true);
@@ -68,7 +69,8 @@ const HomePage: React.FC<HomePageProps> = (props) => {
                 <Box mt={5} display="flex" justifyContent="space-evenly" flexDirection={isTablet ? "column" : "row"} width="100%">
                     <Box height={275} width={isTablet ? "100%" : 300} display="flex" flexDirection="column" alignItems="center" pt={1} flexShrink={0}>
                         <Typography variant="h6" mb={1}>Progress towards goal:</Typography>
-                        <Box height={200} width={200} display="flex" flexDirection="column" justifyContent="center" alignItems="center"> 
+                        {isFetching && <Skeleton variant="circular" height={200} width={200}/>}
+                        {!isFetching && <Box height={200} width={200} display="flex" flexDirection="column" justifyContent="center" alignItems="center"> 
                             <CircularProgressbarWithChildren
                                 value={percentageCompleted}
                                 styles={buildStyles({
@@ -79,7 +81,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
                                 <Typography variant="body1"><strong>${totalSaved} of ${savingsSummation}</strong></Typography>
                                 <Typography variant="body1" mt={-0.5}><strong>{percentageCompleted}%</strong></Typography>
                             </CircularProgressbarWithChildren>
-                        </Box>
+                        </Box>}
                     </Box>
                     <Divider orientation={isTablet ? "horizontal" : "vertical"} variant="middle"/>
                     <Box height="100%">
@@ -96,15 +98,17 @@ const HomePage: React.FC<HomePageProps> = (props) => {
                 <Box mt={5} display="flex" flexDirection="column" border="1px solid black">
                     <Box display="flex" flexDirection={isMobile ? "column" : "row"} borderBottom="1px solid black">
                         <Box display="flex" justifyContent="center" flexDirection="column" borderRight={isMobile ? "none" : "1px solid black"} borderBottom={isMobile ? "1px solid black" : "none"} width={isMobile ? "auto" : "100%"} py={1} px={2}>
-                            <Box minWidth={150}>
+                            <Box display="flex" flexDirection="column" alignItems="center" minWidth={150}>
                                 <Typography variant="h6">Last saved:</Typography>
-                                <Typography variant="h6">{user.numbersDrawn[user.numbersDrawn.length - 1]}</Typography>
+                                {isFetching && <Skeleton variant="text" height={32} width={32}/>}
+                                {!isFetching && <Typography variant="h6">{user.numbersDrawn[user.numbersDrawn.length - 1]}</Typography>}
                             </Box>
                         </Box>
                         <Box display="flex" justifyContent="center" flexDirection="column" borderRight={isMobile ? "none" : "1px solid black"} borderBottom={isMobile ? "1px solid black" : "none"} width={isMobile ? "auto" : "100%"} py={1} px={2}>
-                            <Box minWidth={150}>
+                            <Box display="flex" flexDirection="column" alignItems="center" minWidth={150}>
                                 <Typography variant="h6">Times drawn:</Typography>
-                                <Typography variant="h6">{user.numbersDrawn.length}</Typography>
+                                {isFetching && <Skeleton variant="text" height={32} width={32}/>}
+                                {!isFetching && <Typography variant="h6">{user.numbersDrawn.length}</Typography>}
                             </Box>
                         </Box>
                         <Box display="flex" justifyContent="center" flexDirection="column" width={isMobile ? "auto" : "100%"} py={1} px={2}>
