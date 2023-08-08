@@ -60,6 +60,7 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
         return () => {
             listen();
         };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
