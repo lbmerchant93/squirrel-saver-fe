@@ -1,46 +1,28 @@
-# Getting Started with Create React App
+# Squirrel Saver - FE
+## * ~ The app designed to help squirrel away money in order to help build your savings. ~ *
+This project is designed as a prototype for a savings plan application. This project is used by the developer to demonstrate and expand on his knowledge/use of React, TypeScript, GraphQL, Firebase, Material-UI, Cypress.io, Jest/React Testing Library, and Prisma ORM.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Contributors
+- Lucas Merchant - Software Developer: [github profile](https://github.com/lbmerchant93)
 
-## Available Scripts
+### Stack
 
-In the project directory, you can run:
+**Build**: React, TypeScript, GraphQL, GraphQL-Request, Firebase, Material-UI, Moment, Styled Components, React Circular Progressbar
 
-### `npm start`
+**Testing**: Cypress.js, Jest/React Testing Library
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+**Deployment**: Vercel
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Table of Contents
+1. [Introduction](#introduction)
 
-### `npm test`
+## Introduction
+This app was created based off the following savings plan steps:
+1. Set a savings range, currently set to a savings range of $1 to $100. (Capability to manipulate this is a future iteration.)
+2. Each day that you work, draw a random number from the savings range. This number is the amount of money you will set aside into your savings. This number is then removed from the drawing possibilities until the savings range is completed.
+3. Repeat drawing until you have drawn all numbers.
+4. Once you have drawn all numbers in the savings range, the summation of the savings range will be the total you have contributed to your savings e.g. with a savings range of $1 to $100, the summation will total $5050!
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The app is not connected to your bank account so it is currently up to the user to actually set aside or transfer any money into their savings.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+[Back to Top of Page](#table-of-contents)
