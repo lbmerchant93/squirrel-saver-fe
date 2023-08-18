@@ -8,6 +8,7 @@ import {
     onAuthStateChanged
 } from 'firebase/auth';
 import { useUser } from './api/user/user';
+import { auth } from './configs/firebase.configs';
 
 export const getAuthToken = () => localStorage.getItem('token');
 
@@ -16,7 +17,7 @@ interface AuthProviderProps {
 }
 
 const AuthProvider: React.FC<AuthProviderProps> = (props) => {
-    const auth = getAuth();
+
     setPersistence(auth, browserLocalPersistence);
     const [displayName, setDisplayName] = useState<string | null | undefined>('');
     const [email, setEmail] = useState<string | null>('');
